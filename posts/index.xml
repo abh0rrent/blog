@@ -1,2 +1,79 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on My Blog</title><link>https://abh0rrent.github.io/blog/posts/</link><description>Recent content in Posts on My Blog</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 21 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://abh0rrent.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>NSA CodeBreaker Challenge WriteUp</title><link>https://abh0rrent.github.io/blog/posts/2025-1-21-nsacodebreakerchallenge/</link><pubDate>Tue, 21 Jan 2025 00:00:00 +0000</pubDate><guid>https://abh0rrent.github.io/blog/posts/2025-1-21-nsacodebreakerchallenge/</guid><description>&lt;p>#Hello world&lt;/p>
-&lt;p>NEW POST!!&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Home</title><link>https://abh0rrent.github.io/blog/posts/</link><description>Recent content in Posts on Home</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 21 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://abh0rrent.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>NSA CodeBreaker Challenge</title><link>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</link><pubDate>Tue, 21 Jan 2025 00:00:00 +0000</pubDate><guid>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</guid><description>&lt;style>
+#sidebar {
+ position: fixed;
+ left: 10px;
+ top: 100px;
+ width: 250px;
+ background: #282828;
+ color: #404040;
+ padding: 15px;
+ border-radius: 5px;
+ font-family: Arial, sans-serif;
+ overflow: auto;
+ transition: all 0.3s ease-in-out;
+ z-index: 1000;
+}
+
+
+#sidebar.top {
+ position: relative !important;
+ width: 100%;
+ top: 0;
+ left: 0;
+ border-radius: 0;
+ text-align: center;
+ padding: 10px;
+}
+
+#sidebar h2 {
+ color: #FFD700; 
+ font-size: 18px;
+}
+
+#sidebar ul li a {
+ color: #AAAAAA; 
+ text-decoration: none;
+}
+
+#content {
+ transition: margin-left 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 900px) {
+ #sidebar {
+ position: relative !important;
+ width: 100%;
+ top: 0;
+ left: 0;
+ border-radius: 0;
+ text-align: center;
+ padding: 10px;
+ }
+ #content {
+ margin-left: 0;
+ padding-top: 80px;
+ }
+}
+&lt;/style>
+&lt;!-- Sidebar Table of Contents -->
+&lt;nav id="sidebar">
+ &lt;h2>Table of Contents&lt;/h2>
+ &lt;ul>
+ &lt;li>&lt;a href="##before-you-read">Background Information&lt;/a>&lt;/li>
+ &lt;li>&lt;a href="#task-0---community-of-practice-discord-server">Task 0&lt;/a>&lt;/li>
+ &lt;li>&lt;a href="#task-1---no-token-left-behind">Task 1 - No Token Left Behind&lt;/a>&lt;/li>
+ &lt;li>&lt;a href="#task-2---driving-me-crazy">Task 2 - Driving Me Crazy&lt;/a>&lt;/li>
+ &lt;li>&lt;a href="#task-3---how-did-they-get-in">Task 3 - How did they get in?&lt;/a>&lt;/li>
+ &lt;li>&lt;a href="#task-4---llms-never-lie">Task 4 - LLMs never lie&lt;/a>&lt;/li>
+ &lt;li>&lt;a href="#task-5---the-153">Task 5 - The #153&lt;/a>&lt;/li>
+ &lt;li>&lt;a href="#conclusion">Conclusion&lt;/a>&lt;/li>
+ &lt;/ul>
+&lt;/nav>
+&lt;h1 id="before-you-read">
+ Before you read
+ &lt;a class="heading-link" href="#before-you-read">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h1>
+&lt;p>Here I just wanted to give some background information on me and this challenge. This is a challenge developed by the National Security Agency that takes place over several months and tests various technical and logical skills. Out of any CTF challenge I&amp;rsquo;ve done, this has been my favorite by far. Here I&amp;rsquo;m just going to talk about how I solved these challenges, some other methods to solve them, and some of my mistakes along the way.&lt;/p></description></item></channel></rss>

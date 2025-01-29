@@ -1,0 +1,948 @@
+<!doctype html><html lang=en><head><title>NSA CodeBreaker Challenge · Home
+</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="Dominic"><meta name=description content="
+
+
+    Table of Contents
+    
+        Background Information
+        Task 0
+        Task 1 - No Token Left Behind
+        Task 2 - Driving Me Crazy
+        Task 3 - How did they get in?
+        Task 4 - LLMs never lie
+        Task 5 - The #153
+        Conclusion
+    
+
+
+  Before you read
+  
+    
+    Link to heading
+  
+
+Here I just wanted to give some background information on me and this challenge. This is a challenge developed by the National Security Agency that takes place over several months and tests various technical and logical skills. Out of any CTF challenge I&rsquo;ve done, this has been my favorite by far. Here I&rsquo;m just going to talk about how I solved these challenges, some other methods to solve them, and some of my mistakes along the way."><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="NSA CodeBreaker Challenge"><meta name=twitter:description content="Table of Contents Background Information Task 0 Task 1 - No Token Left Behind Task 2 - Driving Me Crazy Task 3 - How did they get in? Task 4 - LLMs never lie Task 5 - The #153 Conclusion Before you read Link to heading Here I just wanted to give some background information on me and this challenge. This is a challenge developed by the National Security Agency that takes place over several months and tests various technical and logical skills. Out of any CTF challenge I’ve done, this has been my favorite by far. Here I’m just going to talk about how I solved these challenges, some other methods to solve them, and some of my mistakes along the way."><meta property="og:url" content="https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/"><meta property="og:site_name" content="Home"><meta property="og:title" content="NSA CodeBreaker Challenge"><meta property="og:description" content="Table of Contents Background Information Task 0 Task 1 - No Token Left Behind Task 2 - Driving Me Crazy Task 3 - How did they get in? Task 4 - LLMs never lie Task 5 - The #153 Conclusion Before you read Link to heading Here I just wanted to give some background information on me and this challenge. This is a challenge developed by the National Security Agency that takes place over several months and tests various technical and logical skills. Out of any CTF challenge I’ve done, this has been my favorite by far. Here I’m just going to talk about how I solved these challenges, some other methods to solve them, and some of my mistakes along the way."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-01-21T00:00:00+00:00"><meta property="article:modified_time" content="2025-01-21T00:00:00+00:00"><link rel=canonical href=https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/><link rel=preload href=/fonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin><link rel=preload href=/fonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin><link rel=stylesheet href=/blog/css/coder.min.bb7a78bfb4e57aba6e78691ce9ad3fef35238fff2f55149e48bb3c43becd260c.css integrity="sha256-u3p4v7TlerpueGkc6a0/7zUjj/8vVRSeSLs8Q77NJgw=" crossorigin=anonymous media=screen><link rel=stylesheet href=/blog/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=/img/favicon.svg sizes=any><link rel=icon type=image/png href=/img/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/img/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><div class=float-container><a id=dark-mode-toggle class=colorscheme-toggle><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></a></div><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=https://abh0rrent.github.io/blog/>Home
+</a><input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa-solid fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/blog/posts/>Blog</a></li><li class=navigation-item><a class=navigation-link href=/blog/about/>About</a></li><li class=navigation-item><a class=navigation-link href=/blog/resources/>Resources</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/>NSA CodeBreaker Challenge</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa-solid fa-calendar" aria-hidden=true></i>
+<time datetime=2025-01-21T00:00:00Z>January 21, 2025
+</time></span><span class=reading-time><i class="fa-solid fa-clock" aria-hidden=true></i>
+36-minute read</span></div></div></header><div class=post-content><style>#sidebar{position:fixed;left:10px;top:100px;width:250px;background:#282828;color:#404040;padding:15px;border-radius:5px;font-family:Arial,sans-serif;overflow:auto;transition:all .3s ease-in-out;z-index:1000}#sidebar.top{position:relative!important;width:100%;top:0;left:0;border-radius:0;text-align:center;padding:10px}#sidebar h2{color:gold;font-size:18px}#sidebar ul li a{color:#aaa;text-decoration:none}#content{transition:margin-left .3s ease-in-out}@media screen and (max-width:900px){#sidebar{position:relative!important;width:100%;top:0;left:0;border-radius:0;text-align:center;padding:10px}#content{margin-left:0;padding-top:80px}}</style><nav id=sidebar><h2>Table of Contents</h2><ul><li><a href=##before-you-read>Background Information</a></li><li><a href=#task-0---community-of-practice-discord-server>Task 0</a></li><li><a href=#task-1---no-token-left-behind>Task 1 - No Token Left Behind</a></li><li><a href=#task-2---driving-me-crazy>Task 2 - Driving Me Crazy</a></li><li><a href=#task-3---how-did-they-get-in>Task 3 - How did they get in?</a></li><li><a href=#task-4---llms-never-lie>Task 4 - LLMs never lie</a></li><li><a href=#task-5---the-153>Task 5 - The #153</a></li><li><a href=#conclusion>Conclusion</a></li></ul></nav><h1 id=before-you-read>Before you read
+<a class=heading-link href=#before-you-read><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h1><p>Here I just wanted to give some background information on me and this challenge. This is a challenge developed by the National Security Agency that takes place over several months and tests various technical and logical skills. Out of any CTF challenge I&rsquo;ve done, this has been my favorite by far. Here I&rsquo;m just going to talk about how I solved these challenges, some other methods to solve them, and some of my mistakes along the way.</p><h2 id=task-0---community-of-practice-discord-server>Task 0 - (Community of Practice, Discord Server):
+<a class=heading-link href=#task-0---community-of-practice-discord-server><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>&rsquo;&rsquo;&rsquo;<br>As a participant in the Codebreaker Challenge, you are invited to join the New Mexico Tech Codebreaker Challenge Community of Practice! This is the 3rd year that NMT has partnered with the NSA Codebreaker Challenge. Its purpose remains to give students interested in cybersecurity a place to talk about Codebreaker, cybersecurity, and other related topics.</p><p>To complete this task, first, join the Discord server.</p><p>Once there, type /task0 in the #bot-commands channel. Follow the prompts and paste the answer the bot gives you below.</p><p>&rsquo;''</p><p>There really isn&rsquo;t much to say about task 0. We were given a Discord Channel to join. From there we just had to enter the /task0 command and supply our email and a token to validate ourselves. Really set the tone for the rest of the challenge.</p><h2 id=task-1---no-token-left-behind>Task 1 - No Token Left Behind:
+<a class=heading-link href=#task-1---no-token-left-behind><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>&rsquo;&rsquo;&rsquo;<br>Aaliyah is showing you how Intelligence Analysts work. She pulls up a piece of intelligence she thought was interesting. It shows that APTs are interested in acquiring hardware tokens used for accessing DIB networks. Those are generally controlled items, how could the APT get a hold of one of those?</p><p>DoD sometimes sends copies of procurement records for controlled items to the NSA for analysis. Aaliyah pulls up the records but realizes it’s in a file format she’s not familiar with. Can you help her look for anything suspicious?</p><p>If DIB companies are being actively targeted by an adversary the NSA needs to know about it so they can help mitigate the threat.</p><p>Help Aaliyah determine the outlying activity in the dataset given<br>&rsquo;''</p><p>For this task, we were given a file, <em><strong>shipping.db</strong></em>, which is a compressed directory containing DoD procurement information. The one file is important to us is <em><strong>content.xml</strong></em>. This is an xml database that contains various information and procurement ID&rsquo;s for every purchase.</p><p>An example Entry:</p><div style="padding:1px;width:100%;height:50px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:relative;margin:auto;border:2px solid #000;border-radius:10px"><pre id=copy-text><code>
+<text:p>&lt;text:p&gt;Titan Aerospace Systems&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;316 Hawkins Isle Apt. 275, New Steveland, AR 73351&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;Jessica Thomas&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;###-###-4680&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;jessicat@titanaerospace.systems&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;Ryan Perez&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;###-###-9665&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;ryanp@titanaerospace.systems&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;TIT0672027&lt;/text:p&gt;</div>
+<p>I decided to just open this up in an XML database application, <strong>basex</strong>. From here, I started to look through the database properties where I could see the frequency of each item in the database. I figured that if an entry was poisoned, it would only appear once (expect for the procurement IDs), so I started by looking at all of the unique entries. Here I found that there was an address that was only used once. And after finding it in the database, I also had the procurement ID associated with that purchase.</p>
+<p>This was of course the easiest task in the challenge, but I had not worked much with xml and don&rsquo;t plan to work with it much anymore. But, it was interesting nontheless. Also, I have a feeling my solution to this task contributed to my difficulty with finding out what &lsquo;jasper_0&rsquo; was in task3. Had I actually looked at an entry, I would have seen a very similar layout for all of the emails and this could have sped up that last little bit.</p>
+<h2 id=task-2---driving-me-crazy>
+  Task 2 - Driving Me Crazy:
+  <a class=heading-link href=#task-2---driving-me-crazy>
+    <i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+    <span class=sr-only>Link to heading</span>
+  </a>
+</h2>
+<p>&rsquo;&rsquo;&rsquo;<br>
+Having contacted the NSA liaison at the FBI, you learn that a facility at this address is already on a FBI watchlist for suspected criminal activity.</p>
+<p>With this tip, the FBI acquires a warrant and raids the location.</p>
+<p>Inside they find the empty boxes of programmable OTP tokens, but the location appears to be abandoned. We&rsquo;re concerned about what this APT is up to! These hardware tokens are used to secure networks used by Defense Industrial Base companies that produce critical military hardware.</p>
+<p>The FBI sends the NSA a cache of other equipment found at the site. It is quickly assigned to an NSA forensics team. Your friend Barry enrolled in the Intrusion Analyst Skill Development Program and is touring with that team, so you message him to get the scoop. Barry tells you that a bunch of hard drives came back with the equipment, but most appear to be securely wiped. He managed to find a drive containing what might be some backups that they forgot to destroy, though he doesn&rsquo;t immediately recognize the data. Eager to help, you ask him to send you a zip containing a copy of the supposed backup files so that you can take a look at it.</p>
+<p>If we could recover files from the drives, it might tell us what the APT is up to. Provide a list of unique SHA256 hashes of all files you were able to find from the backups. Example (2 unique hashes):</p>
+<p>471dce655395b5b971650ca2d9494a37468b1d4cb7b3569c200073d3b384c5a4
+0122c70e2f7e9cbfca3b5a02682c96edb123a2c2ba780a385b54d0440f27a1f6<br>
+&rsquo;&rsquo;'</p>
+<p>For this task, we were given an archive of backup files that could help us find out what this APT is up to. Immediately things did not go so well for me on this task and really just wouldn&rsquo;t :(. I extracted the backup files and ran the file command on the first backup. This let me know that these were <a href=https://docs.oracle.com/cd/E19253-01/819-5461/gbcya/index.html target=_blank><em>zfs snapshots</em></a>. From here, I went down a massive rabbit hole. I installed a FreeBSD virtual machine and installed a second virtual harddrive onto it so I could create a zpool and perform an incremental zfs recieve on the backups. Then I tried various ways to try and make this zfs receive work. This all despite knowing that this was a broken zfs stream meaning that I would never be able to receieve all of the snapshots. despite my best attempts, I could not make something efficient to make this work. So, I went through the incredibly tedious copy and pasting plaintext into a file and hashing it. Becuase of this, I got stuck on the last hash. This is where I used my first <em>get-help</em>. In traditional fashion, I got the &ldquo;Keep thinking&rdquo; message that seems to have become synonymous with this challenege.</p>
+<p>But, aftering thinking for a bit, I remembered that there was a file called <em><strong>config.edn</strong></em> which was actually empty and therefore never had data that showed up in any of the backup files. So, I decided to create an empty file and hash that. To my surprise and mild annoyance, it worked.</p>
+<p>I almost forgot to mention that during my thinking stage at the end, I went down a couple weird rabbit holes where I found the logseq application hashes from when these files would have been created and tried several of those. This still sticks with me&hellip;</p>
+<h2 id=task-3---how-did-they-get-in>
+  Task 3 - How did they get in?:
+  <a class=heading-link href=#task-3---how-did-they-get-in>
+    <i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+    <span class=sr-only>Link to heading</span>
+  </a>
+</h2>
+<p>&rsquo;&rsquo;&rsquo;<br>
+Great work finding those files! Barry shares the files you extracted with the blue team who share it back to Aaliyah and her team. As a first step, she ran strings across all the files found and noticed a reference to a known DIB, “Guardian Armaments” She begins connecting some dots and wonders if there is a connection between the software and the hardware tokens. But what is it used for and is there a viable threat to Guardian Armaments (GA)?</p>
+<p>She knows the Malware Reverse Engineers are experts at taking software apart and figuring out what it&rsquo;s doing. Aaliyah reaches out to them and keeps you in the loop. Looking at the email, you realize your friend Ceylan is touring on that team! She is on her first tour of the Computer Network Operations Development Program</p>
+<p>Barry opens up a group chat with three of you. He wants to see the outcome of the work you two have already contributed to. Ceylan shares her screen with you as she begins to reverse the software. You and Barry grab some coffee and knuckle down to help.</p>
+<p>Figure out how the APT would use this software to their benefit<br>
+&rsquo;''</p>
+<p>If you ask anyone in this challenge, task 3 was the hardest. I&rsquo;m inclined to agree with them. The only reverse-engineering experience I had prior to this task was reading source-code to understand what it did. I had never actually tried to reverse-engineer a binary before, but did know of <em>Ghidra</em> and <em>IDA</em> and had read some article about reverse-engineering. So&hellip; this was quite hard as you can imagine.</p>
+<p>In this challenge, we were given an executable from the zfs filesystem and an image of a shredded page that read &ldquo;<em>jasper_0</em>&rdquo;. I started by doing the typical <em>file</em> and <em>strings</em> command on the executable.</p>
+<div style="padding:5px;width:100%;height:125px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:relative;margin:auto;border:2px solid #444;border-radius:10px">
+<p style=margin:0>server: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, Go BuildID=W52wkW82l-QqCNkZlrWN/uPwKeKb7-L-DMg0w7fI9/9q7G13AkdWBvnvqzUcbZ/8urZRFTaPdWcrHAQMU3e, with debug_info, not stripped</p></div>
+<p><em>Not stripped?? It seemed like my lucky day at the time</em></p>
+<p>After reading some of the output from the <em>strings</em> command, I decided to open this up in <em>Ghidra</em> and <em>IDA</em> to start actually reading some of the pseudo-code.</p>
+<p>A snippet from the filesystem backups, an <a href=https://cujo.com/blog/reverse-engineering-go-binaries-with-ghidra/ target=_blank>article</a> I read about a year prior, and the <em>strings</em> output helped me to narrow down that this was a go binary pretty quickely. These resources also helped to get me moving in the right direction with my analysis. I decided to try and see what the program did from the users perspective, so I ran the binary and saw some important information:</p>
+<div style="padding:5px;width:100%;height:200px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:relative;margin:auto;border:2px solid #444;border-radius:10px">
+<text:p>
+Starting the Guardian Armaments OTP seed generation service!  Please ensure that this software can reach the authentication service to register any generated seeds!  Otherwise your token will not authenticate you to the network after you program it with this seed
+<p>{&ldquo;time&rdquo;:&ldquo;2025-01-28T16:21:05.586487229-05:00&rdquo;,&ldquo;level&rdquo;:&ldquo;INFO&rdquo;,&ldquo;msg&rdquo;:&ldquo;Connected to auth server&rdquo;}
+{&ldquo;time&rdquo;:&ldquo;2025-01-28T16:21:05.58684643-05:00&rdquo;,&ldquo;level&rdquo;:&ldquo;ERROR&rdquo;,&ldquo;msg&rdquo;:&ldquo;Failed to ping the auth service&rdquo;,&ldquo;ping_response&rdquo;:null,&ldquo;err&rdquo;:&ldquo;rpc error: code = Unavailable desc = connection error: desc = &quot;transport: Error while dialing: dial tcp 127.0.0.1:50052: connect: connection refused&quot;&rdquo;}</p></div></p>
+<p>This shows the binary is an OTP seed generator for an internal DIB network and that it was trying to ping an authentication server running on 127.0.0.1:50052. For anyone who doesnt know, and OTP seed generator is a program that generates seeds that an authentication server and a client can use to produce One Time Passwords (OTPs). It is implied by the procurment of the hardware tokens that this OTP seed would be programmed into the hardware token and the hardware token would provide internal network access.</p>
+<p>So my first though was to just use netcat to listen for communication on that port. The results from this indicated that this OTP seed generator is communicating with HTTP/2.</p>
+<div style="padding:5px;width:400px;height:150px;background-color:#1e1e1e;color:#fff;border:2px solid #444;border-radius:10px;margin:auto;overflow:auto">
+<p style=margin:0>nc -lvnp 50052 
+<p>Connection from 127.0.0.1:44272
+PRI * HTTP/2.0</p>
+</div>
+<p>HTTP/2, while being significantly better, is not used nearly as much as HTTP/1.1 allowing us to narrow down our analysis. With the strings, functions, HTTP/2, and some googling in mind, I found that the binary was using the <a href=https://grpc.io/docs/what-is-grpc/introduction/ target=_blank>gRPC framework</a> for communication. gRPC (Remote Procedure Call) is similar to a REST API. gRPC works on something like a contract model. The client and server program use a proto file to define functions, arguments, and data types that can be passed back and forth.</p>
+<div style="padding:5px;width:100%;height:400px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:relative;margin:auto;border:2px solid #444;border-radius:10px">
+<text:p>syntax = "proto3";
+<p>package seed_generation;</p>
+<p>service SeedGenerationService {
+rpc GetSeed(SeedRequest) returns (SeedResponse);
+rpc StressTest(StressTestRequest) returns (StressTestResponse);
+}</p>
+<p>// The message sent from the client to the server
+message SeedRequest {
+// A parameter that influences the seed generation (you can add more fields)
+string username = 1;
+string password = 2;
+}</p>
+<p>// The message returned from the server to the client
+message SeedResponse {
+// The generated seed
+int64 seed_value = 1;
+int64 count = 2;
+}</p>
+<p>message StressTestRequest {
+int64 Count = 1;
+string username = 2;
+string password = 3;
+}</p>
+<p>message StressTestResponse {
+int64 response = 1;
+string count = 2;
+}</p>
+</div>
+<p>A client sends a request as specified in the shared proto file to the server. The server will do whatever processing it needs to do and return data to the client as specified in the shared proto file. We are able to pretty quickely confirm this with the ping function in the binary. So, my first step was to get the authentication server up and running. I decided to use python for this because it would be significnatly easier than using <em>golang</em> considering I&rsquo;ve never used <em>go</em> before. I was able to get the authentication server up and running pretty quickely and could receive and respond to a ping request!!</p>
+<div style="padding:5px;width:100%;height:450px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:relative;margin:auto;border:2px solid #444;border-radius:10px">
+<text:p>import grpc
+import socket  
+import sys
+from concurrent import futures
+import auth_service_pb2
+import auth_service_pb2_grpc
+import numpy as np
+<p>class AuthService(auth_service_pb2_grpc.AuthServiceServicer):</p>
+<pre><code>def Ping(self, request, context):
+    try:
+        responseinteger = np.int64(456)
+        print(f&quot;Received Ping request with message: {request.message}&quot;)
+        response = auth_service_pb2.PingResponse(message = 456)
+        if response:
+            print(f&quot;Successfully sent response: {response}&quot;)
+
+        return response
+    except Exception as e:
+        print(f&quot;Error in Ping handler: {e}&quot;)
+        context.set_details(f&quot;Error in service handler: {str(e)}&quot;)
+        context.set_code(grpc.StatusCode.INTERNAL)
+        return auth_service_pb2.PingResponse()
+
+def Authenticate(self, request, context):
+    try:
+        print(f&quot;\nReceived Authentication Request: \nUsername: \&quot;{request.username}\&quot;, Password: \&quot;{request.password}\&quot;&quot;)
+        print(context)
+        if request.username == &quot;user&quot; or request.username == None:
+            response = auth_service_pb2.AuthResponse(is_valid=False, message=&quot;Username and password is not valid&quot;)
+            print(f&quot;Sending Auth Response: {response}&quot;)
+            return response
+        response = auth_service_pb2.AuthResponse(is_valid=True, message=&quot;Username and password is valid&quot;)
+        print(f&quot;Sending Auth Response: {response}&quot;)
+        return response
+    except Exception as e:
+        print(f&quot;Error in Credential handling: {e}&quot;)
+        context.set_details(f&quot;Error in service handler: {str(e)}&quot;)
+        context.set_code(grpc.StatusCode.INTERNAL)
+
+def RegisterOTPSeed(self, request, context):
+    try:
+        print(f&quot;\nReceived OTP register request: \nuser_id: \&quot;{request.user_id}\&quot;, seed: \&quot;{request.seed}\&quot;, state: \&quot;{request.count}\&quot;&quot;)
+        if request.count:
+            sys.exit(0)
+        print(context)
+
+        response = auth_service_pb2.OTPSeedResponse(is_valid = True)
+        if response is None:
+            print(&quot;response is null&quot;)
+        print(f&quot;Sending OTP registeration response: {response}&quot;)
+        return response
+
+    except Exception as e:
+        print(f&quot;Error in seed handling: {e}&quot;)
+        context.set_details(f&quot;Error in service handler: {str(e)}&quot;)
+        context.set_code(grpc.StatusCode.INTERNAL)
+
+def FunctionStream(self, request_iterator, context):
+    request = [
+        auth_service_pb2.FunctionRequest(request_type=&quot;RefreshToken&quot;, payload = &quot;1&quot;),
+        auth_service_pb2.FunctionRequest(request_type=&quot;VerifyOTP&quot;, payload = &quot;2455094387035389244&quot;)
+    ]
+    for req in request:
+        print(f&quot;Sending request: {req}&quot;)
+        yield req
+
+        try:
+            response = next(request_iterator)
+            print(f&quot;Response: {response.result}, Status: {response.status}&quot;)
+        except Exception as e:
+            print(f&quot;Error in sending reqeust: {e}&quot;)
+
+def Logout(self, request, context):
+    try:
+        #print(f&quot;Received OTP Authentication Token: {seed}&quot;)
+        #print(f&quot;user_id: {request.user_id}&quot;)
+        print(&quot;Received Logout request&quot;)
+        new_token = 2455094387035389245
+        response = auth_service_pb2.LogoutResponse(success=True, message=&quot;Successfully logged out&quot;)
+        print(f&quot;Sending logout response: {response}&quot;)
+        return response
+    except Exception as e:
+        print(f&quot;Error in Token handling: {e}&quot;)
+        context.set_details(f&quot;Error in service handler: {str(e)}&quot;)
+        context.set_code(grpc.StatusCode.INTERNAL)
+</code></pre><p>def serve():
+server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+auth_service_pb2_grpc.add_AuthServiceServicer_to_server(AuthService(), server)
+server.add_insecure_port(&rsquo;[::]:50052&rsquo;)
+server.start()
+print(&ldquo;gRPC server listening on port 50052&mldr;&rdquo;)
+server.wait_for_termination()</p><p>if <strong>name</strong> == &lsquo;<strong>main</strong>&rsquo;:
+serve()</p></div></p><p><em>This was just the final iteration of my program, I did start with just the &lsquo;ping&rsquo; function implimented and slowely implimented all of the other functions to ensure they worked appropriately</em></p><p>Ok so now what?? Well the other functions in the OTP seed binary indicate that a client program is needed to actually make the requests to generate the seeds. So, lets get a client program working. After some bashing my head against the wall, I was finally able to get the client program to prompt the OTP seed binary to generate a seed.</p><div style="padding:5px;width:100%;height:450px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>import grpc
+import sys
+import seedgen_service_pb2
+import seedgen_service_pb2_grpc<p>def main(FunctionCall):</p><pre><code>bState = True
+SeedGenStub, AuthStub = ConnectToServer()
+
+while bState:
+    if FunctionCall == &quot;seed&quot;:
+        GetAuthSeed(SeedGenStub)
+    elif FunctionCall == &quot;test&quot;:
+        StressTestServer(SeedGenStub)
+    elif FunctionCall == &quot;ping&quot;:
+        PingServer(SeedGenStub)
+    elif FunctionCall == &quot;verify&quot;:
+        VerifyOTP(AuthStub)
+    elif FunctionCall == &quot;logout&quot;:
+        Logout(AuthStub)
+    elif FunctionCall == &quot;refresh&quot;:
+        RefreshToken(AuthStub)
+    elif FunctionCall == &quot;testvalue&quot;:
+        testEmbeddedByValue(SeedGenStub)
+    else:
+        print(&quot;That is not a recognized command&quot;)
+        sys.exit(1)
+    FunctionCall = input(&quot;Enter another function to call or exit: &quot;)
+
+    if FunctionCall == &quot;exit&quot;:
+        bState = False;
+</code></pre><p>def Logout(stub):
+try:
+print(&ldquo;Logging out&rdquo;)
+request = auth_service_pb2.LogoutRequest(username=&ldquo;test111&rdquo;)
+response = stub.Logout(request)
+print(response)
+except Exception as e:
+print(f"Error logging out: {e}")</p><p>def VerifyOTP(stub):
+try:
+print(&ldquo;Verifying OTP&rdquo;)
+request = auth_service_pb2.VerifyOTPRequest(otp = &ldquo;2455094387035389244&rdquo;, username = &ldquo;jasper_0&rdquo;)
+response = stub.VerifyOTP(request)
+print(response)
+except Exception as e:
+print(f"Error verifying OTP: {e}")</p><p>def RefreshToken(stub):
+try:
+print(&ldquo;Refreshing token&rdquo;)
+request = auth_service_pb2.RefreshTokenRequest(refresh_token = &ldquo;2455094387035389244&rdquo;)
+response = stub.RefreshToken(request)
+print(response)
+except Exception as e:
+print(f"Error refreshing token: {e}")</p><p>def GetAuthSeed(stub):
+try:
+print(&ldquo;Getting auth seed&rdquo;)
+request = seedgen_service_pb2.SeedRequest(username=&ldquo;jasper_02950&rdquo;, password=&ldquo;testing&rdquo;)
+response = stub.GetSeed(request)
+print(response)</p><pre><code>except:
+    print(&quot;Failed to send SeedRequest!&quot;)
+</code></pre><p>def StressTestServer(stub):</p><pre><code>try:
+    print(&quot;Performing stress test&quot;)
+    request = seedgen_service_pb2.StressTestRequest(Count=0)
+    response = stub.StressTest(request)
+except Exception as e: 
+    print(f&quot;Failed to send StressRequest! {e}&quot;)
+</code></pre><p>def ConnectToServer():</p><pre><code>try:
+    print(&quot;Connecting to gRPC server...&quot;)
+
+    channel = grpc.insecure_channel('127.0.0.1:50051')
+except:
+    print(&quot;Failed to connect to gRPC server&quot;)
+
+SeedGenStub = seedgen_service_pb2_grpc.SeedGenerationServiceStub(channel)
+
+return SeedGenStub, AuthStub
+</code></pre><p>if <strong>name</strong>=="<strong>main</strong>":</p><pre><code>    if len(sys.argv) &lt; 2:
+        print(f&quot;ERROR: Too few arguments. \n USAGE: {sys.argv[0]} \&quot;seed\&quot;, \&quot;test\&quot;, or \&quot;ping\&quot;&quot;)
+        sys.exit(1)
+
+    FunctionCall = sys.argv[1]
+    main(FunctionCall)
+</code></pre></div><p><em>Again this is the final version I used and wanted this to be a little simpler. I started with the &lsquo;getseed&rsquo; function and slowely added the others through testing.</em></p><p>From here, the real analysis can begin. After some testing and code analysis, its pretty easy to see the flow of the program. The client calls &ldquo;GetSeed&rdquo; with credentials, the OTP generator prompts the Authentication server to authentication those credentials, if they are valid, the OTP generator prompts the authenitcation server to register the OTP seed and count and passes the seed and count to the client.</p><p><em>Code flow between programs</em></p><p>All this testing also showed me that the seed is actually deterministric (VERY important feature). I wasn&rsquo;t quite sure why yet though. Here was probably one of my biggest fumbles, I see that there is a local authentication, but based on it&rsquo;s console log (&ldquo;test user authenticated, but has no privileges in network so no need to authenticate with Auth Service&rdquo;), I assume that it won&rsquo;t actually be used, so im kinda stuck. I started looking at the StressTest function and found that you can inject a count to itereate the seed which seemed like it could be very useful, but I wasn&rsquo;t sure how yet.</p><p>This happens because the first variable type the <em>stresstest</em> function expects is an <em>int</em> and that is used by the <em>stresstest</em> function to determine if it should attempt authentication. It then attempts authentication once for every count you entered. e.g. If you enter a 3, <em>stresstest</em> attempts authentication 3 times with default, static credentials. This just raises the count and therefore iterates the seed by that count.</p><p>So, I decided to try and track down the seed and figure out what it actually generating it. After some grueling pseudo-code and assembly review, I found that the seed was actually generated from the math/rand.int63() function
+<em>This function just returns a non-negative &ldquo;pseudo-random&rdquo; Int64 and takes no arguments. This only returns a random integer if there is no initial seed value initialized in math/rand.Seed(int64 variable)</em></p><p>This means that the seed this program is generated must have been initialize with an initial seed supplied in the math/rand.Seed() function. So, we can track that down and make our own seed generator that will matach this binary&rsquo;s.</p><div style="padding:5px;width:100%;height:450px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>package main<p>import (
+&ldquo;fmt&rdquo;
+&ldquo;math/rand&rdquo;
+&ldquo;encoding/binary&rdquo;
+&ldquo;bufio&rdquo;
+&ldquo;os&rdquo;
+&ldquo;strings&rdquo;
+)</p><p>func main() {</p><pre><code>rand.Seed(917074103257469)
+count := 1
+var neededHex uint32 = 0xbe418bea
+
+reader := bufio.NewReader(os.Stdin)
+fmt.Print(&quot;Enter username: &quot;)
+
+username, _ := reader.ReadString('\n')
+username = strings.TrimSpace(username)
+
+if len(username) &lt; 12 {
+	panic(&quot;Username too short&quot;)
+}
+
+if len(username) &gt; 12 {text:p
+
+firstPart := binary.LittleEndian.Uint32(usernameBytes[0:4])
+secondPart := binary.LittleEndian.Uint32(usernameBytes[4:8])
+thirdPart := binary.LittleEndian.Uint32(usernameBytes[8:12])
+
+firstIteration := neededHex ^ thirdPart
+secondIteration := firstIteration ^ secondPart
+thirdIteration := secondIteration ^ firstPart
+
+hexStr := fmt.Sprintf(&quot;%08x&quot;, thirdIteration)
+
+var seed int64 = rand.Int63()
+
+for {
+
+	seed = rand.Int63()
+	hexValue := fmt.Sprintf(&quot;%016X&quot;, seed)
+	last8 := hexValue[len(hexValue)-8:]
+
+
+	if strings.ToLower(last8) == hexStr {
+		seed = rand.Int63()
+		count++
+		fmt.Printf(&quot;{\&quot;username\&quot;:\&quot;%s\&quot;, \&quot;seed\&quot;: %d, \&quot;count\&quot;: %d}\n&quot;, username, seed, count)
+		break
+	}
+	count++
+}
+</code></pre><p>}</p></p></div><p><em>This is the final version of the program after I had figured out how the authentication mechanism worked</em></p><p>Ok, but without a way to take advantage of these, I&rsquo;m still stuck. I decided to just do some testing with the <em><strong>test</strong></em> username and noticed that after the first seed, the OTP seed binary was actually prompting the authentication server to authenticate the user. This, then actually made me go back and look at the local authentication mechanism. From this, I noticed that this mechanism chunks the username in 4 bytes, converts this chunk into hexadecimal and XORs it with the last half of the previous key. This means that the <em><strong>test</strong></em> user can only be authenticated locally for the first seed. This also means that other strings can actually pass the local authentication for future seeds.</p><p>Now, here is where the shredded page comes in.</p><img src=shredded.jpg alt=Attack width=500 height=600 style=display:block;margin:auto><p>I figured this was a username for the majority of the task, but I did do some searches in the binary for modules of the same name just in case. But, now that we have a potential username, and a broken authentication mechanism, we can find the seed where <strong>JASPER_0</strong> will trip local authentication. This realization came to me while I was at work, so I had to hide for a bit while I pulled my hair out for being stupid enough to discount a hardcoded simple authentication mechanism from being important.</p><div style="padding:5px;width:50;height:50px;overflow:auto;font-family:monospace;background-color:#1e1e1e;border:2px solid #444;border-radius:10px;text-align:center"><p style=margin:0>{"username":"jasper_0", "seed": 6474372019584795273, "count": 1186588851}</p></div><p>There are a couple important reasons for why I choose these json key and value pairs. After setting up my authentication server, I made sure that any username and password pair would respond with a <em>true</em> for user authentication which prompt the OTP generator to send a <em>RegisterOTP</em> request. After responding <em>true</em> to this request as well, the OTP generator will spit out these key value pairs. Another reason is because this is an OTP generator for HMAC security tokens. So, it stands to reason that the json key value pairs would be the keys and values you would program into a hardware authentication token.</p><p>But, after trying a couple times, I was met with failure still. This is another one of my fumbles. I had the idea after a couple days of being stuck here to just do a quick ctrl-f in the filesystem backups and content.xml from the previous tasks. But, by the time I made it back to my computer, I forgot to do this and got pulled in another direction. I think if I had solved task 1 in a different way, I likely wouldn&rsquo;t have been stuck here for as long as I was, but I was at this exact point making no progress for far too long. I think about half of my solve time for task 3 was here. But, after a very emotional couple weeks of no progress, I came back to the idea to ctrl-f content.xml for jasper_0. And there it was, staring back at me. <strong>&ldquo;jasper_02950&rdquo;</strong> So, I changed my code to find the seed &ldquo;jasper_02950&rdquo; would trigger local authentication for, and after just a couple minutes, I had the seed and the count. Plugging those into the NSA codebreaker website grants me the long awaited green box!!</p><div style="padding:5px;width:100%;height:50px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>{"username":"jasper_02950", "seed": 3587025203939264949, "count": 3783802834}</div><p>I spent way to long on this task. But, overall, I think I&rsquo;m the most proud of this one. despite reading that article from however long ago, I had never actually reverse engineered anything before this. The NCL Cyber League Competition was actually after I had started this, and that challenge definitely helped me to go back an reanalysis the local authenication mechanism again in greater depth. But, yeah, this was a super tough one that I was able to learn so so much from.</p><p>Extra pictures if you need to visualize what we are doing here:</p><p>Normally:</p><img src=regular.png alt=Regular width=500 height=300 style=display:block;margin:auto><p>Our Attack method:</p><img src=attack.png alt=Attack width=500 height=300 style=display:block;margin:auto><p>In essence, we are bypassing remote authentication</p><h2 id=task-4---llms-never-lie>Task 4 - LLMs never lie:
+<a class=heading-link href=#task-4---llms-never-lie><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>&rsquo;&rsquo;&rsquo;<br>Great work! With a credible threat proven, NSA&rsquo;s Cybersecurity Collaboration Center reaches out to GA and discloses the vulnerability with some indicators of compromise (IoCs) to scan for.</p><p>New scan reports in hand, GA&rsquo;s SOC is confident they&rsquo;ve been breached using this attack vector. They&rsquo;ve put in a request for support from NSA, and Barry is now tasked with assisting with the incident response.</p><p>While engaging the development teams directly at GA, you discover that their software engineers rely heavily on an offline LLM to assist in their workflows. A handful of developers vaguely recall once getting some confusing additions to their responses but can&rsquo;t remember the specifics.</p><p>Barry asked for a copy of the proprietary LLM model, but approvals will take too long. Meanwhile, he was able to engage GA&rsquo;s IT Security to retrieve partial audit logs for the developers and access to a caching proxy for the developers&rsquo; site.</p><p>Barry is great at DFIR, but he knows what he doesn&rsquo;t know, and LLMs are outside of his wheelhouse for now. Your mutual friend Dominique was always interested in GAI and now works in Research Directorate.</p><p>The developers use the LLM for help during their work duties, and their AUP allows for limited personal use. GA IT Security has bound the audit log to an estimated time period and filtered it to specific processes. Barry sent a client certificate for you to authenticate securely with the caching proxy using https://192.168.4.20/?q=query%20string.</p><p>You bring Dominique up to speed on the importance of the mission. They receive a nod from their management to spend some cycles with you looking at the artifacts. You send the audit logs their way and get to work looking at this one.</p><p>Find any snippet that has been purposefully altered.<br>&rsquo;&rsquo;&rsquo;</p><p>Ok, after the hardest task in the challenge comes one of the easiest. This was like drinking a glass of water when you&rsquo;re dehydrated at 3am. This was definitely needed.</p><p>This challenge gives us a TTY audit log of the time frame that developers believe that their internal offline LLM was giving odd responses.</p><div style="padding:5px;width:100%;height:150px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>ttyaudit=1715774406 w=1 d="export PATH=$PATH:~/b\x03 u=1000 s=26 id=590337 c=0xd6b1
+ttyaudit=1715774418 w=1 d=echo "expor PATH=$PAT\033[D\033[D\033[D\033[D\033[D\033[D\033[D\033[D\033[D\033[Dt\033[C\033[C\033[C\033[C\033[C\033[C\033[C\033[C\033[C\033[CH:~/bin" >> ~/.profile\x0d u=1000 s=168 id=590338 c=0x6949
+ttyaudit=1715774480 w=1 d=gagpt -m "Can yo list\033[D\033[D\033[D\033[D\033[Du\033[C\033[C\033[C\033[C\033[C 5 common methods for optimizing large-scale distributed databases, specifically in the context of a microservice architecture"\x0d u=1000 s=213 id=590339 c=0x434</div><p><em>This is just a snippet of the audit log, its just a log of commands entered by various people in a certain time frame. A couple things to note: There is some corruption in the log that we will need to clean up and this include all commands (the AI queries and everything else)</em></p><p>After looking through the audit log a little, you can see that the LLM is queried with <em><strong>gagpt -m &ldquo;query&rdquo;</strong></em>. So, I just made a litte script to pull everything after that into a new text file where I cleaned up the corrupt data.</p><div style="padding:5px;width:100%;height:450px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>import re<p>def consolidate_logs():
+consolidated_logs = []
+current_log = ""</p><pre><code>with open(&quot;audit.log&quot;, 'r') as file:
+    for line in file:
+        if re.match(r'^ttyaudit=\d+', line):  
+            if current_log:
+                consolidated_logs.append(current_log.strip())  #
+            current_log = line  
+        else:
+            current_log += &quot; &quot; + line.strip()  
+
+    if current_log: 
+        consolidated_logs.append(current_log.strip())
+
+return consolidated_logs
+</code></pre><p>def extract_questions(logs):
+questions = []</p><pre><code>for log in logs:
+    try:
+        match = re.search(r'-m\s&quot;?(.*?)\s(?:u=|s=|id=|c=|$)', log)
+        if match:
+            question = match.group(1).strip()
+            questions.append(question)
+    except Exception as e:
+        print(f&quot;Error processing log: {e}\n&quot;)
+
+return questions
+</code></pre><p>logs = consolidate_logs()
+questions = extract_questions(logs)</p><p>with open(&ldquo;checkingquestions.txt&rdquo;, &ldquo;w&rdquo;) as file:
+for i, question in enumerate(questions, 1):
+file.write(question + &ldquo;\n&rdquo;)</p></p></div><p><em>NOTE: This code captures all entries after the &lsquo;-m&rsquo;. While this does capture all of the questions, the &lsquo;-m&rsquo; flag is also used in another command which means that this script will capture those commands as well. This code also does not check for duplicate questions.</em></p><p>Then, I made another script to query the LLMs cached responses at that above IP (changed because the task will be offline soon anyway) and save everything to one large text file.</p><div style="padding:5px;width:100%;height:450px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>import json
+from requests_pkcs12 import get,post
+import urllib3<p>def main():</p><pre><code>urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+i = 1
+
+with open(&quot;logquestions.txt&quot;, &quot;r&quot;) as questionfile:
+    with open(&quot;finalquestionresponses.txt&quot;, &quot;w&quot;) as file:
+        for question in questionfile:
+            response = get(url=&quot;https://192.168.4.20/?q=&quot; + question.strip(), pkcs12_filename=&quot;client12file.p12&quot;, pkcs12_password=&quot;password&quot;, verify=False)
+        
+            jsonReponse = response.json()
+            if jsonReponse.get(&quot;error&quot;) is True:
+                print(i)
+            else:
+                text = jsonReponse.get(&quot;fulfillment&quot;, [{}])[0].get(&quot;text&quot;, &quot;&quot;)
+                file.write(question + &quot;\n\n&quot; + text + &quot;\n\n\n\n&quot;)
+            
+            i = i + 1
+</code></pre><p>if <strong>name</strong> == &ldquo;<strong>main</strong>&rdquo;:
+main()</p></p></div><p><em>Just a quick little script to capture the cached LLM responses</em></p><p>From here they made it hard to create a script to parse through for anything related to coding by adding some questions taking care of a python and a rust covered garage door. But, It really wasn&rsquo;t too bad to just go through the file and look for anything odd. After spending some time reading and trying to understand some interesting programming concepts, I stumbled upon <strong>&ldquo;globals()[&lsquo;ga&rsquo;] = <strong>import</strong>(&lsquo;gd76085&rsquo;)&rdquo;</strong> which is pretty clearly a malicious import. First, &ldquo;gd76085&rdquo; is not a real python package meaning this has to be a custom library, and two, this is not how you would traditionally import modules in python. Both of these together indicate that this is the maliciously altered line of code.</p><p>Now this is not to say that I didn&rsquo;t get baited by other lines of code. Specifically lines that are generally unsafe like lines where there were hardcoded credentials or API keys. But, those are still vastely different to the above line of code.</p><h2 id=task-5---the-153>Task 5 - The #153
+<a class=heading-link href=#task-5---the-153><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>&rsquo;&rsquo;&rsquo;<br>Great job finding out what the APT did with the LLM! GA was able to check their network logs and figure out which developer copy and pasted the malicious code; that developer works on a core library used in firmware for the U.S. Joint Cyber Tactical Vehicle (JCTV)! This is worse than we thought!</p><p>You ask GA if they can share the firmware, but they must work with their legal teams to release copies of it (even to the NSA). While you wait, you look back at the data recovered from the raid. You discover an additional drive that you haven’t yet examined, so you decide to go back and look to see if you can find anything interesting on it. Sure enough, you find an encrypted file system on it, maybe it contains something that will help!</p><p>Unfortunately, you need to find a way to decrypt it. You remember that Emiko joined the Cryptanalysis Development Program (CADP) and might have some experience with this type of thing. When you reach out, he&rsquo;s immediately interested! He tells you that while the cryptography is usually solid, the implementation can often have flaws. Together you start hunting for something that will give you access to the filesystem.</p><p>What is the password to decrypt the filesystem?<br>&rsquo;&rsquo;&rsquo;</p><p>Now the whole beginning of this task is likely my biggest single fumble. While my approach still worked, and I still can&rsquo;t get other&rsquo;s approach to work, this took me quite a bit longer than it should have for several reasons&mldr; My approach also made me think that this task almost as hard as 3 if not just as hard.</p><p>This challenge gave us two binaires, <em><strong>pm</strong></em>, and <strong><em>pidgin_rsa_encryption</em></strong>, some chat logs between several members of the APT group, the public keys for everyone, and the private key for <em><strong>570RM</strong></em>. I decided to focus on the <em><strong>pm</strong></em> binary at first. I started by getting some basic information from the binary with the <em>file</em> and <em>strings</em> commands.</p><div style="padding:5px;width:100%;height:100px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>pm: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=0230dd29d2f5ba42b3274ff7981105c752577832, for GNU/Linux 2.6.32, stripped</div><p><em>This strings output is too large for me to put here. But trust that it shows this is binary contains a .pyc file and this gave me a clue on how to proceed&mldr; kinda</em></p><p>This revealed that, <em>in my mind</em>, this was a C binary that was initializing the Python interpreter and loading a python script dynamically to run it from memory. After running this binary, It makes a folder in the /tmp directory which is where I started to look first. This first 4 characters are always &ldquo;_MEI&rdquo; while the remaining characters are randomly generated.</p><div style="padding:5px;width:100%;height:50px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>_MEIoEtBsU</div><p>This ended up being just standard library stuff, so not super useful. From here, I decided to try and dump the memory of the process as it runs. Using GDB, I decided to try and read the memory at some specific addresses for functions I knew ran or loaded python code like <em>PyEval_EvalCode</em>, <em>PyMarshal_ReadObjectFromString</em>, and <em>PyImport_ExecCodeModule</em>. After a day or two of failing this, I decided to move on and try to hook the binary. This is where I started to find some more success.</p><p>I originally tried to use make some simple trampoline hooks, but due to a lack of space, couldn&rsquo;t make them work. I wasn&rsquo;t able to get an aboslute jump to actually work with this binary for a couple reasons. Using an indirect absolute jump in x86_64 assembly requires around 12 bytes:</p><div style="padding:5px;width:100%;height:100px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>mov rax, 0x400000 #loads the address into the RAX register ... ~10 bytes of space<p>jmp rax #Jumps to the address located in the RAX register &mldr; ~2 bytes of space</div></p><p><em>x86_64 assembly doesn&rsquo;t directly support aboslute jumps to addresses that are over 2gb away in memory meaning we have to do the above for an absolute jump. There are other techniques as well but suffice it to say they would all result in segfaults</em></p><p>And anytime I tried to do this at the address I needed to hook, I would corrupt the subsequent calls causing a segfault.</p><p>Trampoline Jumps require even more space (about 16 bytes) making them even more unreasonable at the address I needed to hook. I then learned about hooking using code caves. These essentially function as normal jmp instrtuction (relative jumps because this is x86_64 assembly) to a larger null space in the code where you can perform an aboslue jump or a trampoline. However, the largest code cave I could find was about 7 bytes meaning this was also unfeasible. So, gonna have to try something else. Eventually I got the idea to hook <em><strong>dlsym</strong></em>. This is the function that imports those cpython modules that run and load the python code anyway, so I can just hook this to hijack those functions.</p><p>The last (not really) issue was that this binary called a function called <em>execvp</em> which spawned a child process and cloned the parent processes memory into that child. This function made analyzing <em><strong>pm</strong></em> with IDA or Ghidra very difficult. Because of this function, I needed a way to determine if I was in the parent process or the child process for previous hook attempts to I&rsquo;m not severely corrupting memory before the python script can even run. But, hooking <em><strong>dlsym</strong></em> meant that I dont need to keep track of the process that is currently running becuase dlsym is only ever called in the child process. Now that I can hijack any function I want, I decided to just dump all of the data that is passed to these functions.</p><div style="padding:5px;width:100%;height:500px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>#define _GNU_SOURCE
+#include <dlfcn.h>#include <stdio.h>#include <string.h>#include <python.h><p>int i = 1;
+int j = 1;
+int h = 1;</p><p>static PyObject *(*original_PyImport_ExecCodeModule)(const char *, PyObject *) = NULL;
+static PyObject *(*original_PyEval_EvalCode)(PyObject *, PyObject *, PyObject *) = NULL;
+static PyObject *(*original_PyMarshal_ReadObjectFromString)(const char *, Py_ssize_t) = NULL;
+static void *(*original_dlsym)(void *, const char *) = NULL;</p><p>PyObject *PyMarshal_ReadObjectFromString(const char *data, Py_ssize_t len) {</p><pre><code>printf(&quot;Intercepted PyMarshal_ReadObjectFromString number: %d, with data length: %ld\n&quot;, i, len);
+
+char cFilePath[128];
+
+snprintf(cFilePath, sizeof(cFilePath), &quot;marshaled_data_%d.bin&quot;, i++);
+
+FILE *fMarshalFile = fopen(cFilePath, &quot;wb&quot;);
+if (fMarshalFile) {
+    if(fwrite(data, 1, len, fMarshalFile) != (size_t)len) {
+        fprintf(stderr, &quot;[ERROR]: Failed to write full data to file\n&quot;);
+    }
+    fclose(fMarshalFile);
+} else {
+    fprintf(stderr, &quot;[ERROR]: failed to open PyMarshal File\n&quot;);
+}
+printf(&quot;Closed file\n&quot;);
+
+if (Py_IsInitialized()) {
+    printf(&quot;Python is initialized\n&quot;);
+}
+
+if (!original_PyMarshal_ReadObjectFromString){
+
+    original_PyMarshal_ReadObjectFromString = original_dlsym(RTLD_NEXT, &quot;PyMarshal_ReadObjectFromString&quot;);
+
+    printf(&quot;testing\n&quot;);
+
+    if (!original_PyMarshal_ReadObjectFromString) {
+        fprintf(stderr, &quot;[ERROR]: Unable to resolve PyEval_EvalCode\n&quot;);
+        return NULL;
+    } else {
+        printf(&quot;first Created original_PyMarshal_ReadObjectFromString\n&quot;);
+    }
+}
+printf(&quot;second Created original_PyMarshal_ReadObjectFromString\n&quot;);
+PyObject *result = original_PyMarshal_ReadObjectFromString(data, len);
+
+if (!result) {
+    fprintf(stderr, &quot;[ERROR]: PyMarshal_ReadObjectFromString returned NULL\n&quot;);
+    return NULL;
+}
+
+PyObject *repr = PyObject_Repr(result);
+if (repr) {
+    const char * ReprString = PyUnicode_AsUTF8(repr);
+    if (ReprString) {
+        printf(&quot;[INFO]: PyMarshal_ReadObject returned object: %s\n&quot;, ReprString);
+    }
+    Py_DECREF(repr);
+
+} else {
+    fprintf(stderr, &quot;[ERROR]: Failed to create string representation of returned value\n&quot;);
+}
+
+return result; 
+</code></pre><p>}</p><p>PyObject *PyEval_EvalCode(PyObject *co, PyObject *globals, PyObject *locals) {</p><pre><code>printf(&quot;Intercepted PyEval_EvalCode number: %d\n&quot;, j);
+
+char cFilePath[128];
+
+snprintf(cFilePath, sizeof(cFilePath), &quot;EvalCode_data_%d.bin&quot;, j++);
+
+
+FILE * fEvalCodeFile = fopen(cFilePath, &quot;wb&quot;);
+if (fEvalCodeFile) {
+    PyObject *repr = PyObject_Repr(co);
+    if (repr) {
+        fwrite(PyUnicode_AsUTF8(repr), 1, strlen(PyUnicode_AsUTF8(repr)), fEvalCodeFile);
+        Py_DECREF(repr);
+    }
+    fclose(fEvalCodeFile);
+}
+
+if (!original_PyEval_EvalCode){
+
+    original_PyEval_EvalCode = (PyObject *(*)(PyObject *, PyObject *, PyObject *))
+        original_dlsym(RTLD_NEXT, &quot;PyEval_EvalCode&quot;);
+
+    if (!original_PyEval_EvalCode) {
+        fprintf(stderr, &quot;[ERROR]: Unable to resolve PyEval_EvalCode\n&quot;);
+        return NULL;
+    }
+}
+PyObject *result = original_PyEval_EvalCode(co, globals, locals);
+
+return result;
+</code></pre><p>}</p><p>PyObject *PyImport_ExecCodeModule(const char *name, PyObject *co) {</p><pre><code>printf(&quot;Intercepted PyImport_ExecCodeModule number: %d, with module name: %s\n&quot;, h, name);
+
+char cFilePath[128];
+
+snprintf(cFilePath, sizeof(cFilePath), &quot;ExecCodeModule_data_%d.bin&quot;, h++);
+
+FILE *fExecCodeModule = fopen(cFilePath, &quot;wb&quot;);
+if (fExecCodeModule) {
+    PyObject *repr = PyObject_Repr(co);
+    if (repr) {
+        fwrite(PyUnicode_AsUTF8(repr), 1, strlen(PyUnicode_AsUTF8(repr)), fExecCodeModule);
+        Py_DECREF(repr);
+    }
+    fclose(fExecCodeModule);
+}
+
+if (!original_PyImport_ExecCodeModule){
+
+    original_PyImport_ExecCodeModule = (PyObject *(*)(const char *, PyObject *))
+        original_dlsym(RTLD_NEXT, &quot;PyImport_ExecCodeModule&quot;);
+
+    if (!original_PyImport_ExecCodeModule) {
+        fprintf(stderr, &quot;[ERROR]: Unable to resolve PyEval_EvalCode\n&quot;);
+        return NULL;
+    }
+}
+PyObject *result = original_PyImport_ExecCodeModule(name, co);
+
+return result;
+</code></pre><p>}</p><p>void *dlsym(void *handle, const char *symbol) {</p><pre><code>if (!original_dlsym) {
+    original_dlsym = (void *(*)(void *, const char *))dlvsym(RTLD_NEXT, &quot;dlsym&quot;, &quot;GLIBC_2.2.5&quot;);
+    if (!original_dlsym) {
+        fprintf(stderr, &quot;[ERROR]: failed to resolve dlsym\n&quot;);
+        exit(EXIT_FAILURE);
+    }
+}
+
+printf(&quot;Hooked dlsym: Resolving symbol '%s'\n&quot;, symbol);
+
+if (strcmp(symbol, &quot;PyEval_EvalCode&quot;) == 0) {
+    printf(&quot;Intercepting PyEval_EvalCode!\n&quot;);
+    return (PyObject *)PyEval_EvalCode;
+}
+
+if (strcmp(symbol, &quot;PyImport_ExecCodeModule&quot;) == 0) {
+    printf(&quot;Intercepting PyImport_ExecCodeModule!\n&quot;);
+    return (PyObject *)PyImport_ExecCodeModule;
+}
+
+if (strcmp(symbol, &quot;PyMarshal_ReadObjectFromString&quot;) == 0) {
+    printf(&quot;Intercepting PyMarshal_ReadObjectFromString!\n&quot;);
+    return (void *)PyMarshal_ReadObjectFromString;
+}
+
+return original_dlsym(handle, symbol);
+</code></pre><p>}</p></div><p>after injecting my function calls into the binary, I would try and return the value these functions would be returning anyway to not interupt the code flow. This would dump all the data I needed and looking at the last data that is passed through <em>PyMarshal_ReadObjectFromString</em>, I can see the marshaled python byte code which we can unmarshal and dissassemble into &ldquo;readable&rdquo; python byte code.</p><div style="padding:5px;width:100%;height:500px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>Disassembled Bytecode:<p>Name: <module></p><p>Filename: pm.py
+Argument count: 0
+Positional-only arguments: 0
+Kw-only arguments: 0
+Number of locals: 0
+Stack size: 6
+Flags: 0x0
+Constants:
+0: 0
+1: None
+2: (&lsquo;getpass&rsquo;,)
+3: (&lsquo;Cipher&rsquo;, &lsquo;algorithms&rsquo;, &lsquo;modes&rsquo;)
+4: (&lsquo;serialization&rsquo;,)
+5: (&lsquo;PBKDF2HMAC&rsquo;,)
+6: (&lsquo;default_backend&rsquo;,)
+7: (&lsquo;hashes&rsquo;,)
+8: b&rsquo;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00&rsquo;
+9: &lsquo;password&rsquo;
+10: &lsquo;return&rsquo;
+11: &lt;code object derive_key at 0x7e07de790030, file &ldquo;pm.py&rdquo;, line 19>
+12: &rsquo;length&rsquo;
+13: &lt;code object generate_password at 0x7e07de73ac30, file &ldquo;pm.py&rdquo;, line 29>
+14: &lsquo;spassword&rsquo;
+15: &lt;code object encrypt_password at 0x6133603c78c0, file &ldquo;pm.py&rdquo;, line 40>
+16: &rsquo;encrypted_data&rsquo;
+17: &lt;code object decrypt_password at 0x61336033bf60, file &ldquo;pm.py&rdquo;, line 52>
+18: &lsquo;filename&rsquo;
+19: &lt;code object save_password at 0x7e07de316740, file &ldquo;pm.py&rdquo;, line 61>
+20: &lt;code object load_password at 0x7e07de750df0, file &ldquo;pm.py&rdquo;, line 67>
+21: &lt;code object usage at 0x7e07de74d210, file &ldquo;pm.py&rdquo;, line 72>
+22: &lt;code object main at 0x6133603cc970, file &ldquo;pm.py&rdquo;, line 81>
+23: &lsquo;<strong>main</strong>&rsquo;
+Names:
+0: os
+1: sys
+2: base64
+3: getpass
+4: hashlib
+5: time
+6: string
+7: random
+8: cryptography.hazmat.primitives.ciphers
+9: Cipher
+10: algorithms
+11: modes
+12: cryptography.hazmat.primitives
+13: serialization
+14: cryptography.hazmat.primitives.kdf.pbkdf2
+15: PBKDF2HMAC
+16: cryptography.hazmat.backends
+17: default_backend
+18: hashes
+19: SALT
+20: str
+21: bytes
+22: derive_key
+23: int
+24: generate_password
+25: encrypt_password
+26: decrypt_password
+27: save_password
+28: load_password
+29: usage
+30: main
+31: <strong>name</strong></p><p>Bytecode Instructions:
+0 0 RESUME 0</p><p>1 2 LOAD_CONST 0 (0)
+4 LOAD_CONST 1 (None)
+6 IMPORT_NAME 0 (os)
+8 STORE_NAME 0 (os)</p><p>2 10 LOAD_CONST 0 (0)
+12 LOAD_CONST 1 (None)
+14 IMPORT_NAME 1 (sys)
+16 STORE_NAME 1 (sys)</p><p>3 18 LOAD_CONST 0 (0)
+20 LOAD_CONST 1 (None)
+22 IMPORT_NAME 2 (base64)
+24 STORE_NAME 2 (base64)</p><p>4 26 LOAD_CONST 0 (0)
+28 LOAD_CONST 2 ((&lsquo;getpass&rsquo;,))
+30 IMPORT_NAME 3 (getpass)
+32 IMPORT_FROM 3 (getpass)
+34 STORE_NAME 3 (getpass)
+36 POP_TOP</p><p>5 38 LOAD_CONST 0 (0)
+40 LOAD_CONST 1 (None)
+42 IMPORT_NAME 4 (hashlib)
+44 STORE_NAME 4 (hashlib)</p><p>6 46 LOAD_CONST 0 (0)
+48 LOAD_CONST 1 (None)
+50 IMPORT_NAME 5 (time)
+52 STORE_NAME 5 (time)</p><p>7 54 LOAD_CONST 0 (0)
+56 LOAD_CONST 1 (None)
+58 IMPORT_NAME 6 (string)
+60 STORE_NAME 6 (string)</p><p>8 62 LOAD_CONST 0 (0)
+64 LOAD_CONST 1 (None)
+66 IMPORT_NAME 7 (random)
+68 STORE_NAME 7 (random)</p><p>9 70 LOAD_CONST 0 (0)
+72 LOAD_CONST 3 ((&lsquo;Cipher&rsquo;, &lsquo;algorithms&rsquo;, &lsquo;modes&rsquo;))
+74 IMPORT_NAME 8 (cryptography.hazmat.primitives.ciphers)
+76 IMPORT_FROM 9 (Cipher)
+78 STORE_NAME 9 (Cipher)
+80 IMPORT_FROM 10 (algorithms)
+82 STORE_NAME 10 (algorithms)
+84 IMPORT_FROM 11 (modes)
+86 STORE_NAME 11 (modes)
+88 POP_TOP</p><p>10 90 LOAD_CONST 0 (0)
+92 LOAD_CONST 4 ((&lsquo;serialization&rsquo;,))
+94 IMPORT_NAME 12 (cryptography.hazmat.primitives)
+96 IMPORT_FROM 13 (serialization)
+98 STORE_NAME 13 (serialization)
+100 POP_TOP</p><p>11 102 LOAD_CONST 0 (0)
+104 LOAD_CONST 5 ((&lsquo;PBKDF2HMAC&rsquo;,))
+106 IMPORT_NAME 14 (cryptography.hazmat.primitives.kdf.pbkdf2)
+108 IMPORT_FROM 15 (PBKDF2HMAC)
+110 STORE_NAME 15 (PBKDF2HMAC)
+112 POP_TOP</p><p>12 114 LOAD_CONST 0 (0)
+116 LOAD_CONST 6 ((&lsquo;default_backend&rsquo;,))
+118 IMPORT_NAME 16 (cryptography.hazmat.backends)
+120 IMPORT_FROM 17 (default_backend)
+122 STORE_NAME 17 (default_backend)
+124 POP_TOP</p><p>13 126 LOAD_CONST 0 (0)
+128 LOAD_CONST 7 ((&lsquo;hashes&rsquo;,))
+130 IMPORT_NAME 12 (cryptography.hazmat.primitives)
+132 IMPORT_FROM 18 (hashes)
+134 STORE_NAME 18 (hashes)
+136 POP_TOP</p><p>17 138 LOAD_CONST 8 (b&rsquo;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00&rsquo;)
+140 STORE_NAME 19 (SALT)</p><p>19 142 LOAD_CONST 9 (&lsquo;password&rsquo;)
+144 LOAD_NAME 20 (str)
+146 LOAD_CONST 10 (&lsquo;return&rsquo;)
+148 LOAD_NAME 21 (bytes)
+150 BUILD_TUPLE 4
+152 LOAD_CONST 11 (&lt;code object derive_key at 0x7e07de790030, file &ldquo;pm.py&rdquo;, line 19>)
+154 MAKE_FUNCTION 4 (annotations)
+156 STORE_NAME 22 (derive_key)</p><p>29 158 LOAD_CONST 12 (&rsquo;length&rsquo;)
+160 LOAD_NAME 23 (int)
+162 LOAD_CONST 10 (&lsquo;return&rsquo;)
+164 LOAD_NAME 20 (str)
+166 BUILD_TUPLE 4
+168 LOAD_CONST 13 (&lt;code object generate_password at 0x7e07de73ac30, file &ldquo;pm.py&rdquo;, line 29>)
+170 MAKE_FUNCTION 4 (annotations)
+172 STORE_NAME 24 (generate_password)</p><p>40 174 LOAD_CONST 14 (&lsquo;spassword&rsquo;)
+176 LOAD_NAME 20 (str)
+178 LOAD_CONST 9 (&lsquo;password&rsquo;)
+180 LOAD_NAME 20 (str)
+182 LOAD_CONST 10 (&lsquo;return&rsquo;)
+184 LOAD_NAME 21 (bytes)
+186 BUILD_TUPLE 6
+188 LOAD_CONST 15 (&lt;code object encrypt_password at 0x6133603c78c0, file &ldquo;pm.py&rdquo;, line 40>)
+190 MAKE_FUNCTION 4 (annotations)
+192 STORE_NAME 25 (encrypt_password)</p><p>52 194 LOAD_CONST 16 (&rsquo;encrypted_data&rsquo;)
+196 LOAD_NAME 21 (bytes)
+198 LOAD_CONST 9 (&lsquo;password&rsquo;)
+200 LOAD_NAME 20 (str)
+202 LOAD_CONST 10 (&lsquo;return&rsquo;)
+204 LOAD_NAME 20 (str)
+206 BUILD_TUPLE 6
+208 LOAD_CONST 17 (&lt;code object decrypt_password at 0x61336033bf60, file &ldquo;pm.py&rdquo;, line 52>)
+210 MAKE_FUNCTION 4 (annotations)
+212 STORE_NAME 26 (decrypt_password)</p><p>61 214 LOAD_CONST 18 (&lsquo;filename&rsquo;)
+216 LOAD_NAME 20 (str)
+218 LOAD_CONST 9 (&lsquo;password&rsquo;)
+220 LOAD_NAME 20 (str)
+222 LOAD_CONST 14 (&lsquo;spassword&rsquo;)
+224 LOAD_NAME 20 (str)
+226 BUILD_TUPLE 6
+228 LOAD_CONST 19 (&lt;code object save_password at 0x7e07de316740, file &ldquo;pm.py&rdquo;, line 61>)
+230 MAKE_FUNCTION 4 (annotations)
+232 STORE_NAME 27 (save_password)</p><p>67 234 LOAD_CONST 18 (&lsquo;filename&rsquo;)
+236 LOAD_NAME 20 (str)
+238 LOAD_CONST 9 (&lsquo;password&rsquo;)
+240 LOAD_NAME 20 (str)
+242 LOAD_CONST 10 (&lsquo;return&rsquo;)
+244 LOAD_NAME 20 (str)
+246 BUILD_TUPLE 6
+248 LOAD_CONST 20 (&lt;code object load_password at 0x7e07de750df0, file &ldquo;pm.py&rdquo;, line 67>)
+250 MAKE_FUNCTION 4 (annotations)
+252 STORE_NAME 28 (load_password)</p><p>72 254 LOAD_CONST 21 (&lt;code object usage at 0x7e07de74d210, file &ldquo;pm.py&rdquo;, line 72>)
+256 MAKE_FUNCTION 0
+258 STORE_NAME 29 (usage)</p><p>81 260 LOAD_CONST 22 (&lt;code object main at 0x6133603cc970, file &ldquo;pm.py&rdquo;, line 81>)
+262 MAKE_FUNCTION 0
+264 STORE_NAME 30 (main)</p><p>173 266 LOAD_NAME 31 (<strong>name</strong>)
+268 LOAD_CONST 23 (&rsquo;<strong>main</strong>&rsquo;)
+270 COMPARE_OP 2 (&lt;)
+274 CACHE
+276 POP_JUMP_IF_FALSE 12 (to 302)</p><p>174 278 PUSH_NULL
+280 LOAD_NAME 30 (main)
+282 UNPACK_SEQUENCE 0
+286 CALL 0
+294 CACHE
+296 POP_TOP
+298 LOAD_CONST 1 (None)
+300 RETURN_VALUE</p><p>173 &#187; 302 LOAD_CONST 1 (None)
+304 RETURN_VALUE</code></pre></p></div><p>I tried to save this to a .pyc file by adding the magic bytes and padding to the beginning of the file but I was not able to make this work. So, I just read the python bytecode. This revealed that <em><strong>pm</strong></em> is using the AES-CFB algorithm to encrypt passwords. This also revealed that the master password is actually only md5 hashed and used as the directory name which stores the encrypted passwords. The master password is used to generate a key which is combined with a time token to generate the Initialization Vector (IV) which is then stored as the first 16 bytes of the encrypted password.</p><p>AES-CFB is a block cipher algorithm that involves a series of XORs starting with the IV. The IV is XORed against the first 16 bytes of the plaintext which produces the first 16 bytes of ciphertext. This ciphertext is then XORed against the subsequent 16 bytes of plaintext and so on until the end of the password. This means that if we are somehow able to find a cleartext version of a password that uses the same IV as the USB-128 password, we could pretty easily break the encryption.</p><p>Instead of this though, I knew the master password was an MD5 hash and I knew that MD5 is no longer considered secure, so I did spend a couple hours trying to see if I could perform a dictionary attack on the master password but to no avail. I also spent a bit researching if a preimage attack was possible, but also to no avail. Interesting enough, while performing a preimage attack is slightly faster than bruteforcing this hash, it was still completely unfeasible. The computational time complexity required to perform a preimage attack would be somehwere around 2^123.4 with 2^45 * 11 words of memory while bruteforcing the key would have a complexity 2^128. The complexity just being the estimate for the number of operations required in each attack. For context, if you were to try 10^12 operations per second (A very very very unreasonable amount of computation) it would still take you millions of times longer than the age of universe. So, maybe a little too long for this task&mldr;</p><p>After this, I decided to look through the <em><strong>pidgin_rsa_encryption</strong></em> python script which I got with the same method as <em><strong>pm</strong></em>. <em><strong>pidgin_rsa_encryption</strong></em>&rsquo;s script revealed that it&rsquo;s encryption method uses static padding (wow that&rsquo;s super insecure!!) and a small public exponent (WOW EVEN MORE INSECURE!!).</p><div style="padding:5px;width:100%;height:500px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>Disassembly of <code object encrypt_chunk at 0x5ba6dadc9940, file "pidgin_rsa_encryption.py", line 31>:
+31 0 RESUME 0<p>34 2 LOAD_GLOBAL 1 (NULL + math)
+12 CACHE
+14 LOAD_ATTR 1 (NULL|self + math)
+34 CACHE
+36 STORE_SUBSCR
+40 CACHE
+42 CACHE
+44 CACHE
+46 CACHE
+48 CACHE
+50 CACHE
+52 CACHE
+54 CACHE
+56 CACHE
+58 UNPACK_SEQUENCE 0
+62 CALL 0
+70 CACHE
+72 LOAD_CONST 1 (8)
+74 BINARY_OP 11 (/)
+78 UNPACK_SEQUENCE 1
+82 CALL 1
+90 CACHE
+92 STORE_FAST 2 (k)</p><p>36 94 LOAD_FAST 2 (k)
+96 LOAD_GLOBAL 9 (NULL + len)
+106 CACHE
+108 LOAD_FAST 0 (chunk)
+110 UNPACK_SEQUENCE 1
+114 CALL 1
+122 CACHE
+124 BINARY_OP 10 (-)
+128 STORE_FAST 3 (pad_len)</p><p>40 130 LOAD_GLOBAL 11 (NULL + random)
+140 CACHE
+142 LOAD_ATTR 6 (bit_length)
+162 CACHE
+164 CACHE
+166 CACHE
+168 CACHE
+170 POP_TOP</p><p>44 172 LOAD_GLOBAL 15 (NULL + bytes)
+182 CACHE
+184 LOAD_CONST 4 (&lt;code object <listcomp>at 0x773787942930, file &ldquo;pidgin_rsa_encryption.py&rdquo;, line 44>)
+186 MAKE_FUNCTION 0
+188 LOAD_GLOBAL 17 (NULL + range)
+198 CACHE
+200 LOAD_FAST 3 (pad_len)
+202 LOAD_CONST 5 (3)
+204 BINARY_OP 10 (-)
+208 UNPACK_SEQUENCE 1
+212 CALL 1
+220 CACHE
+222 GET_ITER
+224 UNPACK_SEQUENCE 0
+228 CALL 0
+236 CACHE
+238 UNPACK_SEQUENCE 1
+242 CALL 1
+250 CACHE
+252 STORE_FAST 4 (padding)</p><p>47 254 LOAD_CONST 6 (b&rsquo;\x00\x02&rsquo;)
+256 LOAD_FAST 4 (padding)
+258 BINARY_OP 0 (+)
+262 LOAD_CONST 7 (b&rsquo;\x00&rsquo;)
+264 BINARY_OP 0 (+)
+268 STORE_FAST 4 (padding)</p><p>48 270 LOAD_FAST 4 (padding)
+272 LOAD_FAST 0 (chunk)
+274 STORE_SUBSCR
+278 CACHE
+280 CACHE
+282 CACHE
+284 CACHE
+286 CACHE
+288 CACHE
+290 CACHE
+292 CACHE
+294 CACHE
+296 UNPACK_SEQUENCE 0
+300 CALL 0
+308 CACHE
+310 BINARY_OP 0 (+)
+314 STORE_FAST 5 (padded_chunk)</p><p>51 316 LOAD_GLOBAL 20 (int)
+326 CACHE
+328 STORE_SUBSCR
+332 CACHE
+334 CACHE
+336 CACHE
+338 CACHE
+340 CACHE
+342 CACHE
+344 CACHE
+346 CACHE
+348 CACHE
+350 LOAD_FAST 5 (padded_chunk)
+352 LOAD_CONST 8 (&lsquo;big&rsquo;)
+354 KW_NAMES 9 ((&lsquo;byteorder&rsquo;,))
+356 UNPACK_SEQUENCE 2
+360 CALL 2
+368 CACHE
+370 STORE_FAST 6 (input_nr)</p><p>52 372 LOAD_GLOBAL 25 (NULL + core)
+382 CACHE
+384 LOAD_ATTR 13 (NULL|self + seed)
+404 CACHE
+406 CACHE
+408 LOAD_FAST 1 (public_key)
+410 LOAD_ATTR 2 (ceil)
+430 CACHE
+432 CACHE
+434 STORE_FAST 7 (crypted_nr)</p><p>53 436 LOAD_FAST 7 (crypted_nr)
+438 STORE_SUBSCR
+442 CACHE
+444 CACHE
+446 CACHE
+448 CACHE
+450 CACHE
+452 CACHE
+454 CACHE
+456 CACHE
+458 CACHE
+460 LOAD_FAST 2 (k)
+462 LOAD_CONST 8 (&lsquo;big&rsquo;)
+464 KW_NAMES 9 ((&lsquo;byteorder&rsquo;,))
+466 UNPACK_SEQUENCE 2
+470 CALL 2
+478 CACHE
+480 STORE_FAST 8 (encrypted_chunk)</p><p>55 482 LOAD_GLOBAL 33 (NULL + base64)
+492 CACHE
+494 LOAD_ATTR 17 (NULL|self + range)
+514 CACHE
+516 CACHE
+518 CACHE
+520 STORE_SUBSCR
+524 CACHE
+526 CACHE
+528 CACHE
+530 CACHE
+532 CACHE
+534 CACHE
+536 CACHE
+538 CACHE
+540 CACHE
+542 UNPACK_SEQUENCE 0
+546 CALL 0
+554 CACHE
+556 RETURN_VALUE</p></p></div><div style="padding:5px;width:100%;height:200px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>Public exponent for 4C1D_public_key.pem: 3<p>Public exponent for 570RM_public_key.pem: 3
+Public exponent for B055M4N_public_key.pem: 3
+Public exponent for PL46U3_public_key.pem: 3
+Public exponent for V3RM1N_public_key.pem: 3</p></p></div><p>Now, I was not overly farmiliar with the vulnerabilies that a small public exponent introduces at the time of this task. Originally I was reading about <a href=https://medium.com/@c0D3M/bleichenbacher-attack-explained-bc630f88ff25 target=_blank>Bleichenbacher’s attack</a>. But, of course, this just didn&rsquo;t feel very feasible.</p><p>The next attack to look at was <a href=https://en.wikipedia.org/wiki/Coppersmith%27s_attack#H.C3.A5stad.27s_broadcast_attack target=_blank>Hastad&rsquo;s Broadcast Attack</a>. After doing some reading, extracting the moduli, and finding the GCD for each moduli, I decided to try it because it seemed decently likey.</p><div style="padding:5px;width:100%;height:200px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>4C1D_public_key.pem Modulus (N): 29752780084824830802960854046896841854802740902882556332944056163941249112175781783894135325186600964445285593987981971722312522863970313987708925465850918827242690140969682221222979806703872715109571623304757959220371651280370786393259218007183721273582565308871968240020835283445676608405185226429664987380997845247954812060496670474504926271000346079383665072298941607235695258533395890624975698422828292719037898760600118091668114885064893810038082241518466127625063808295529865174464693537435916398431487133651375123570454036286317262923733504460504921940672100745596227756580733006998286279260626942114108465271
+PL46U3_public_key.pem Modulus (N): 24619131135262139721128819047800990507618783351453000047664067742152805951749376564878869168047234586686656312540379056743263280189052487210006299315820950463753451097970232471133528315074343349344990300997014413509014516659114797666172680647386743730312598901614786052469771033376949376126060124746095087452363591373508537934367170301607183406460962989701105388435277804900793051909216893279455188838476840077365675011976167604569706230993285087104602961076113130986064781405811386996344561484392824325414220725929883910294024599381164715314830525349655396027804757329036859300562566013264699628121128150431725525841
+V3RM1N_public_key.pem Modulus (N): 29402055642388974692806027320998486405221084391422101681636825406203953256190964562408360543576626632451648426870892367400873679329958008371471937973756672887195172019314731094290403078430814480708807848368855224468237766364117588313541375345101795969163201308520765811193603584478256414767707173211988480222558598699058705895782612510127005770897781277619934437171269173178987543847845591892959566380963612249738332361867054235261672078308364181482225560940056971721088465658840719580964933331775432308030263389708556698216970279221973356527618896931761970822290357006952219711785081259586482267982348432343791128159<p>GCD of 4C1D_public_key and PL46U3_public_key: 1
+GCD of 4C1D_public_key and V3RM1N_public_key: 1
+GCD of PL46U3_public_key and V3RM1N_public_key: 1</p></p></div><p>Hastad&rsquo;s Broadcast Attack requires a couple constraints to be met before you should attempt it. One is that you need the amount of unique moduli to be at least equal to the public exponent used. Because the public exponent for these RSA keys is 3, we need at least three ciphertexts encrypted with unique moduli. It also states that these moduli must be coprime. This means that if you have the &lsquo;i-th&rsquo; message where &lsquo;C<sub>i</sub> = M<sup>3</sup> mod N<sub>i</sub>&rsquo; then gcd(N<sub>i</sub>, N<sub>j</sub>) == 1 where i != j. This allows us to set up a series of congruency equations to be used in the Chinese Remainder Theorem. Very simply (because I&rsquo;m not a mathematician) the <a href=https://crypto.stanford.edu/pbc/notes/numbertheory/crt.html target=_blank>Chinese Remainder Theorem</a> is an algorithm for solving a series of congruency equations that have the same unique answer through summation.</p><p>e.g
+M<sup>3</sup> ≡ C<sub>1</sub> (mod N<sub>1</sub>)
+M<sup>3</sup> ≡ C<sub>2</sub> (mod N<sub>2</sub>)
+M<sup>3</sup> ≡ C<sub>3</sub> (mod N<sub>3</sub>)</p><p>transforms to</p><img src=summation.jpg alt="Modular Summation" width=450 height=125 style=display:block;margin:auto><p>After completing this equation we are left with, essentially: M<sup>3</sup>(unencrypted message) = C where &lsquo;C&rsquo; is the solution to the sum of congruency equations. So, by taking the cube root of &lsquo;C&rsquo;, we have our unencrypted message.</p><p><a href=https://github.com/ashutosh1206/Crypton/blob/master/RSA-encryption/Attack-Hastad-Broadcast/README.md target=_blank>This</a> was able to help get me started with this program.</p><div style="padding:5px;width:100%;height:500px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>from sympy import mod_inverse, integer_nthroot
+import base64<p>def remove_pkcs1_v1_5_padding(plaintext_bytes):</p><pre><code>print(&quot;Removing padding&quot;)
+if len(plaintext_bytes) &lt; 11:
+    raise ValueError(&quot;Invalid PKCS#1 v1.5 padding.&quot;)
+
+padding_end_index = plaintext_bytes.find(0x00, 2)
+if padding_end_index == -1:
+    raise ValueError(&quot;Invalid PKCS#1 v1.5 padding: No 0x00 byte found.&quot;)
+
+return plaintext_bytes[padding_end_index + 1:]
+</code></pre><p>moduli = [
+29752780084824830802960854046896841854802740902882556332944056163941249112175781783894135325186600964445285593987981971722312522863970313987708925465850918827242690140969682221222979806703872715109571623304757959220371651280370786393259218007183721273582565308871968240020835283445676608405185226429664987380997845247954812060496670474504926271000346079383665072298941607235695258533395890624975698422828292719037898760600118091668114885064893810038082241518466127625063808295529865174464693537435916398431487133651375123570454036286317262923733504460504921940672100745596227756580733006998286279260626942114108465271,
+24619131135262139721128819047800990507618783351453000047664067742152805951749376564878869168047234586686656312540379056743263280189052487210006299315820950463753451097970232471133528315074343349344990300997014413509014516659114797666172680647386743730312598901614786052469771033376949376126060124746095087452363591373508537934367170301607183406460962989701105388435277804900793051909216893279455188838476840077365675011976167604569706230993285087104602961076113130986064781405811386996344561484392824325414220725929883910294024599381164715314830525349655396027804757329036859300562566013264699628121128150431725525841,
+29402055642388974692806027320998486405221084391422101681636825406203953256190964562408360543576626632451648426870892367400873679329958008371471937973756672887195172019314731094290403078430814480708807848368855224468237766364117588313541375345101795969163201308520765811193603584478256414767707173211988480222558598699058705895782612510127005770897781277619934437171269173178987543847845591892959566380963612249738332361867054235261672078308364181482225560940056971721088465658840719580964933331775432308030263389708556698216970279221973356527618896931761970822290357006952219711785081259586482267982348432343791128159,
+]</p><p>ciphertexts = [
+&lsquo;wIvcAK0nhvAtfgNSD3i5XOs6GYRKJJ8A6hG0ebFNknT8JPvXPJIHeZ9GPtxyI6mCenC5sFkqokkEwHMY4atmlOVqAB38sW7vqK3KVjUPdhT9D0ERSgiLgeKfj0qmjAr2ri7Xf85bmtZZ6Vrld67Uyu2zql3OyiJToVjQbeIJpYSTUHw5z5rMA+IuyXhaMWVPESRdzX+TcHg91DLbRnDg7bX1ys87q9gwyXybdhtn6bQeY3X0FVNxaxETzEuwneSskloqtQYSzlzxolG9E5Z2WsYHb6IbqbV6V6XjI9UwK/CNIv3dtNgTkJbiotCyLjYuDYL5T+kWaItke0zuEJUGeQ==&rsquo;,
+&lsquo;ufsrDnz4rC/YxsOoCsEIAozE3P2XpsD32x4/O0o9m6SioLKTJJ2Nhf2vnNuovYiv9mFtgpjaRWut3u/BNWQeu1Z7x8SuGd+M9HFqxybQk6K/cSt7vrIcb/fWQIdHwnP2vAraZqdy0FWQCysyDQz2BuLhPFHaZgmwq5jwj7XLsSRuPy4tHvjErYtHC1BXmSE1E6Xank3Ou4uAnLCR511or7ov6JZX95N2czk8FKtd44h0kuG8h8bGmMdhljJ1P8X8FL38S/gPb93pKiD0QWeWcFVrVxiSKXS5BI0JMLFg6G76PVzeHs3IzyruQ1fjxci2R21yKNox6aBFqV0W+8xQeA==&rsquo;,
+&lsquo;Uh++MwfBcG3zIKNR6KyEK115YbWq5EXzcM0fxcH0a1CaTLbXipP60UUs3Jh/XYHOZ7/j9ed2h95dyUDjZ2vIMOwyLRcHRNwSu9ZMcNH8hstuiVl4K4OvxL002b7uW7YMvIA43N1j5stmGG/QifnWXZWOorT2dnkFgheADDsCYwmlIhiyUlhn3ZeS+vo7Bh3FpyWJATZ60u2x+ynu3Yk+YTWgG7NAQIDQXeLG5533uaDyVUC/gMDmqpKCrqtyUELS9mb1VBm0DZvpxVcT1hhgmlTqggtH0l4lhbKZSuqybVaXuL0Cf7vkgM8gDtxfaWwHRFXCjioE1EerOe5F34cXLg==&rsquo;
+]</p><p>e = 3</p><p>N = moduli[0] * moduli[1] * moduli[2]</p><p>M = [ N//n for n in moduli]
+T = [mod_inverse(M[i], moduli[i]) for i in range(3)]</p><p>decoded_ciphertexts = [int.from_bytes(base64.b64decode(c), &lsquo;big&rsquo;) for c in ciphertexts]
+C = sum(decoded_ciphertexts[i] * M[i] * T[i] for i in range(3)) % N</p><p>plaintext_number, exact = integer_nthroot(C, e)</p><p>if exact:
+print(f"Received plaintext: {plaintext_number}")
+plaintext_bytes = plaintext_number.to_bytes((plaintext_number.bit_length() + 7) // 8, byteorder=&lsquo;big&rsquo;)</p><pre><code>message_bytes = remove_pkcs1_v1_5_padding(plaintext_bytes)
+plaintext_message = message_bytes.decode()
+print(plaintext_message)
+</code></pre><p>else:
+print(&ldquo;Failed to receive plaintext&rdquo;)</p></p></div><p>I was able to get the moduli from each public key and the cipher text from the chat logs that contained an encrypted aws password. After implementing the broadcast attack, I see a nice little sentence containing the aws password.</p><div style="padding:5px;width:100%;height:175px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>Received plaintext: 1150115363758172944347019587010280984638952313901264339319483752437686612189322394005306813118890610113358367075975741269196794883561739609687987785158465392334441266324253508678698324273259532039857124088049664599503459053989080130998754638289706625766249194955192034473717885354647919289657753301613925280802350496306417162127454540090412338978569778171584694732891161662352999811067073805249595841427785234210071822144951792975121250377936326516383722655366891076291305415914694317277373760507979062955944468840952982814125335416685588404134710668757152579663262788303951300711614943010818261328743497122673441
+Removing padding
+Hey! I needed to update the AWS password since it expired. The new password is P7;^q8]Cph{m"!C!\8. Please add it to your password managers. Thanks!</div><p>Now, despite learning about AES-CFB before hand, I got it into my head that I could use the ciphertext aws password stored by <em><strong>pm</strong></em> and the plaintext aws password to dervive the key used by all of the passwords in that directory. After trying several iterations of this, I decided to quit and actually look at the encryption method again. The AES-CFB encryption method combined with the known plaintext of a ciphertext passwords means that I can now find the XOR key used to encrypt the password. And becuase the XOR relies on the IV, if another ciphertext password uses the same IV, I can use the same key the decrypt that password. So, I began by comparing the IVs of the awspassword and the USB-128 password and&mldr; THEY ARE THE SAME! Now, all I have to do is to write a script to find the XOR key and apply it to the USB-128 password.</p><div style="padding:5px;width:100%;height:450px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>def xor_bytes(bytes1, bytes2):
+"""Perform bitwise XOR on two bytes objects."""
+return bytes(a ^ b for a, b in zip(bytes1, bytes2))<p>def decrypt_cbc_with_known_plaintext(shared_iv, known_plaintext, known_ciphertext, target_ciphertext):</p><pre><code>key_xor_iv = xor_bytes(known_ciphertext[:16], known_plaintext[:16])
+decrypted_first_block = xor_bytes(target_ciphertext[:16], key_xor_iv)
+
+decrypted_blocks = [decrypted_first_block]
+previous_cipher_block = target_ciphertext[:16]
+
+for i in range(1, len(target_ciphertext) // 16):
+    block_start = i * 16
+    block_end = block_start + 16
+    current_cipher_block = target_ciphertext[block_start:block_end]
+
+    decrypted_block = xor_bytes(previous_cipher_block, current_cipher_block)
+    decrypted_blocks.append(decrypted_block)
+    previous_cipher_block = current_cipher_block
+
+return b&quot;&quot;.join(decrypted_blocks)
+</code></pre><p>block_size = 16<br>known_plaintext = b"P7;^q8]Cph{m"!C!\8"
+with open(&ldquo;AmazonWebServices&rdquo;, &ldquo;rb&rdquo;) as f:
+known_ciphertext = f.read()
+shared_iv = known_ciphertext[:block_size]
+known_ciphertext = known_ciphertext[block_size:]</p><p>with open(&ldquo;USB-128&rdquo;, &ldquo;rb&rdquo;) as f:
+target_ciphertext = f.read()
+target_iv = target_ciphertext[:block_size]
+target_ciphertext = target_ciphertext[block_size:]</p><p>if shared_iv == target_iv:
+decrypted_target_plaintext = decrypt_cbc_with_known_plaintext(
+shared_iv, known_plaintext, known_ciphertext, target_ciphertext
+)
+print(f"Decrypted target plaintext: {decrypted_target_plaintext.decode()}")</p></p></div><p>Now, There is a problem with this. the file size for both of these passwords is 34 bytes. We know that 16 of those bytes are the prepended IV. Meaning the remaining 18 bytes are the password. Just finding the length of the AWS password confirms this. This also means the the USB-128 password must be 18 bytes. The problem is that AES-CFB uses blocks of 16 bytes making it difficult to XOR those last couple bytes. Because of this, and maybe a little stupidity on my part, I wasn&rsquo;t able to get this script to actually display the last 2 bytes of the password. After about an hour, I just decided to mount the encrypted filesystem and see what I could derive from that. And there, my questions were answered.</p><p><em>AN UNLOCK SCRIPT!</em></p><div style="padding:5px;width:100%;height:175px;overflow:auto;font-family:monospace;background-color:#1e1e1e;position:center;margin:auto;border:2px solid #444;border-radius:10px"><text:p>#!/bin/bash<p>cd &ldquo;$(dirname &ldquo;$0&rdquo;)&rdquo;
+sleep 1
+exec ./.bin/gocryptfs &ldquo;$@&rdquo; -i 60s ./.data ./data</p></div><p><em>I&rsquo;ve never been so happy to see an unlock script</em></p><p>This just shows us that this is a bash scrip that calls a binary located in another directory with specific arguments. We don&rsquo;t need to worry about that binary or really this script all that much. This just means that we can bruteforce the last 2 characters of the password. The &lsquo;sleep 1&rsquo; does add a little time to the endeavor, but its used to let the binary initalize, so well just bear with it. it really just means that it will increase our time to approximately 2 and a half hours to solve if we have to iterate through every password possiblity.</p><p>(92^2 * 1)/ 3600 = 2.3511 hours &mldr;. 92 possible characters in 2 spots multiplied by the seconds per password divided by 3600 seconds in an hour.</p><p>Unfortunately, dealing with an error from task 6 or 7, I deleted the disk.dd file I was using for this task and subsequently deleted the scripts I used to bruteforce the password. But, It was just a simple python script to iterate through all possible combinations of 92 characters in the last two positions of the password and saving these to a text file (usbpassword.txt). Then I wrote a bruteforce.py to call a bruteforce.sh file. The bruteforce.py file would call bruteforce.sh for every password in usbpassword.txt and pass it the password it was on. The bruteforce.sh file would call the ./.bin/gocryptfs binary, print the password onto the screen, and redirect stderr to stdout so my python script could read what was happening. If there was no &lsquo;incorrect password&rsquo; in stdout, then I would store that password in another file. To be honest, I&rsquo;m not sure why I did it like this, looking back there was a significantly easier way to achieve this. But&mldr; it worked so hurray!! I&rsquo;m a high-performer I guess.</p><p>I may add tasks 6 and 7 to this at some point, but, because I did them after the challenge had ended, it doesnt really feel like I should.</p><h2 id=conclusion>Conclusion
+<a class=heading-link href=#conclusion><i class="fa-solid fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><p>A huge thanks to the National Security Agency for this (Capture the Flag??) challenge. This has been one of the most fun experiences I&rsquo;ve had in a long time. This walkthrough kind of ignores a lot of the frustration and experimentation I had to go through to learn all of this, and it was definitely not as easy as this walkthrough makes it seem, it was incredibly difficult. But, I guess I&rsquo;m a high performer?? and get a fidget spinner?? so that&rsquo;s pretty cool ig.</p><script>function copyToClipboard(e){const t=document.getElementById(e).innerText;navigator.clipboard.writeText(t).then(()=>{alert("Code copied to clipboard!")})}</script><script>document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("sidebar");let t=document.querySelector("#sidebar ~ *");if(!e||!t)return;window.checkOverlap=function(){const s=e.getBoundingClientRect(),o=t.getBoundingClientRect(),i=e.offsetWidth,n=window.innerWidth,a=i/n*100,r=n-s.width;a>=15?(e.classList.add("top"),e.style.position="relative",e.style.width="100%",t.style.marginLeft="0",t.style.paddingTop="80px"):o.left>500&&(e.classList.remove("top"),e.style.position="fixed",e.style.width="250px",t.style.marginLeft="300px",t.style.paddingTop="0")},setInterval(()=>{window.checkOverlap()},100),window.addEventListener("scroll",function(){window.checkOverlap()}),window.addEventListener("resize",function(){window.checkOverlap()}),setInterval(()=>{window.checkOverlap()},100)})</script></div><footer><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//yourdiscussshortname.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}(),document.addEventListener("themeChanged",function(){document.readyState=="complete"&&DISQUS.reset({reload:!0,config:disqus_config})})</script></footer></article></section></div><footer class=footer><section class=container>©
+2019 -
+2025
+Dominic
+·
+Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/ target=_blank rel=noopener>Coder</a>.</section></footer></main><script src=/blog/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>
