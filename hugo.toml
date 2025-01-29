@@ -1,5 +1,5 @@
 baseurl = "https://abh0rrent.github.io/blog/"
-title = "My Blog"
+title = "Home"
 theme = "hugo-coder"
 languagecode = "en"
 defaultcontentlanguage = "en"
@@ -16,12 +16,10 @@ shortname = "yourdiscussshortname"
 style = "github-dark"
 
 [params]
-  author = "John Doe"
-  info = "Full Stack DevOps and Magician"
-  description = "John Doe's personal website"
+  author = "Dominic"
+  info = "Developer and Cyber Security Enthusiast"
+  description = "Dominic's Blog"
   keywords = "blog,developer,personal"
-  avatarurl = "images/avatar.jpg"
-  #gravatar = "john.doe@example.com"
 
   faviconSVG = "/img/favicon.svg"
   favicon_32 = "/img/favicon-32x32.png"
@@ -49,17 +47,7 @@ style = "github-dark"
   name = "Github"
   icon = "fa-brands fa-github fa-2x"
   weight = 1
-  url = "https://github.com/johndoe/"
-[[params.social]]
-  name = "Gitlab"
-  icon = "fa-brands fa-gitlab fa-2x"
-  weight = 2
-  url = "https://gitlab.com/johndoe/"
-[[params.social]]
-  name = "Twitter"
-  icon = "fa-brands fa-x-twitter fa-2x"
-  weight = 3
-  url = "https://twitter.com/johndoe/"
+  url = "https://github.com/abh0rrent"
 
 # Menu links
 [[menu.main]]
@@ -70,3 +58,13 @@ style = "github-dark"
   name = "About"
   weight = 2
   url = "about/"
+[[menu.main]]
+  name = "Resources"
+  weight = 3
+  url = "resources/"
+
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

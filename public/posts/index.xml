@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on My Blog</title>
-    <link>http://localhost:1313/posts/</link>
-    <description>Recent content in Posts on My Blog</description>
+    <title>Posts on Home</title>
+    <link>http://localhost:1313/blog/posts/</link>
+    <description>Recent content in Posts on Home</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Tue, 21 Jan 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blog/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>NSA CodeBreaker Challenge WriteUp</title>
-      <link>http://localhost:1313/posts/2025-1-21-nsacodebreakerchallenge/</link>
+      <title>NSA CodeBreaker Challenge</title>
+      <link>http://localhost:1313/blog/posts/nsacodebreakerchallenge/</link>
       <pubDate>Tue, 21 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/2025-1-21-nsacodebreakerchallenge/</guid>
-      <description>&lt;p&gt;#Hello world&lt;/p&gt;&#xA;&lt;p&gt;NEW POST!!&lt;/p&gt;</description>
+      <guid>http://localhost:1313/blog/posts/nsacodebreakerchallenge/</guid>
+      <description>&lt;style&gt;&#xA;#sidebar {&#xA;    position: fixed;&#xA;    left: 10px;&#xA;    top: 100px;&#xA;    width: 250px;&#xA;    background: #282828;&#xA;    color: #404040;&#xA;    padding: 15px;&#xA;    border-radius: 5px;&#xA;    font-family: Arial, sans-serif;&#xA;    overflow: auto;&#xA;    transition: all 0.3s ease-in-out;&#xA;    z-index: 1000;&#xA;}&#xA;&#xA;&#xA;#sidebar.top {&#xA;    position: relative !important;&#xA;    width: 100%;&#xA;    top: 0;&#xA;    left: 0;&#xA;    border-radius: 0;&#xA;    text-align: center;&#xA;    padding: 10px;&#xA;}&#xA;&#xA;#sidebar h2 {&#xA;    color: #FFD700; &#xA;    font-size: 18px;&#xA;}&#xA;&#xA;#sidebar ul li a {&#xA;    color: #AAAAAA; &#xA;    text-decoration: none;&#xA;}&#xA;&#xA;#content {&#xA;    transition: margin-left 0.3s ease-in-out;&#xA;}&#xA;&#xA;@media screen and (max-width: 900px) {&#xA;    #sidebar {&#xA;        position: relative !important;&#xA;        width: 100%;&#xA;        top: 0;&#xA;        left: 0;&#xA;        border-radius: 0;&#xA;        text-align: center;&#xA;        padding: 10px;&#xA;    }&#xA;    #content {&#xA;        margin-left: 0;&#xA;        padding-top: 80px;&#xA;    }&#xA;}&#xA;&lt;/style&gt;&#xA;&lt;!-- Sidebar Table of Contents --&gt;&#xA;&lt;nav id=&#34;sidebar&#34;&gt;&#xA;    &lt;h2&gt;Table of Contents&lt;/h2&gt;&#xA;    &lt;ul&gt;&#xA;        &lt;li&gt;&lt;a href=&#34;##before-you-read&#34;&gt;Background Information&lt;/a&gt;&lt;/li&gt;&#xA;        &lt;li&gt;&lt;a href=&#34;#task-0---community-of-practice-discord-server&#34;&gt;Task 0&lt;/a&gt;&lt;/li&gt;&#xA;        &lt;li&gt;&lt;a href=&#34;#task-1---no-token-left-behind&#34;&gt;Task 1 - No Token Left Behind&lt;/a&gt;&lt;/li&gt;&#xA;        &lt;li&gt;&lt;a href=&#34;#task-2---driving-me-crazy&#34;&gt;Task 2 - Driving Me Crazy&lt;/a&gt;&lt;/li&gt;&#xA;        &lt;li&gt;&lt;a href=&#34;#task-3---how-did-they-get-in&#34;&gt;Task 3 - How did they get in?&lt;/a&gt;&lt;/li&gt;&#xA;        &lt;li&gt;&lt;a href=&#34;#task-4---llms-never-lie&#34;&gt;Task 4 - LLMs never lie&lt;/a&gt;&lt;/li&gt;&#xA;        &lt;li&gt;&lt;a href=&#34;#task-5---the-153&#34;&gt;Task 5 - The #153&lt;/a&gt;&lt;/li&gt;&#xA;        &lt;li&gt;&lt;a href=&#34;#conclusion&#34;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;&#xA;    &lt;/ul&gt;&#xA;&lt;/nav&gt;&#xA;&lt;h1 id=&#34;before-you-read&#34;&gt;&#xA;  Before you read&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#before-you-read&#34;&gt;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&#xA;&lt;p&gt;Here I just wanted to give some background information on me and this challenge. This is a challenge developed by the National Security Agency that takes place over several months and tests various technical and logical skills. Out of any CTF challenge I&amp;rsquo;ve done, this has been my favorite by far. Here I&amp;rsquo;m just going to talk about how I solved these challenges, some other methods to solve them, and some of my mistakes along the way.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
