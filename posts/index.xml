@@ -1,4 +1,53 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Home</title><link>https://abh0rrent.github.io/blog/posts/</link><description>Recent content in Posts on Home</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 21 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://abh0rrent.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>NSA CodeBreaker Challenge</title><link>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</link><pubDate>Tue, 21 Jan 2025 00:00:00 +0000</pubDate><guid>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</guid><description>&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Home</title><link>https://abh0rrent.github.io/blog/posts/</link><description>Recent content in Posts on Home</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 25 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://abh0rrent.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>NSA CodeBreaker Challenge</title><link>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</link><pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate><guid>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</guid><description>&lt;style>
+ .code-box {
+ padding: 10px;
+ width: 100%;
+ max-width: 800px;
+ height: 500px;
+ overflow: auto;
+ font-family: monospace;
+ background-color: #1E1E1E;
+ position: relative;
+ margin: 10px auto;
+ border: 2px solid #000000;
+ border-radius: 10px;
+ color: white;
+ }
+
+ .copy-btn {
+ position: absolute;
+ top: 10px;
+ right: 10px;
+ padding: 5px 10px;
+ background-color: #4CAF50;
+ color: white;
+ border: none;
+ cursor: pointer;
+ border-radius: 5px;
+ font-size: 14px;
+ }
+
+ .copy-btn:hover {
+ background-color: #45a049;
+ }
+
+ pre {
+ margin: 0;
+ padding: 15px; /* Increased padding */
+ white-space: pre-wrap;
+ word-wrap: break-word;
+ overflow-x: auto;
+ max-height: 100%; /* Ensures the text isn't cut off */
+ }
+
+ code {
+ display: block;
+ padding-top: 10px; /* Fixes top being cut off */
+ padding-bottom: 10px;
+ overflow: visible;
+ }
+&lt;/style>
+&lt;style>
 #sidebar {
  position: fixed;
  left: 10px;
@@ -41,7 +90,7 @@
 
 @media screen and (max-width: 900px) {
  #sidebar {
- position: relative !important;
+ position: relative;
  width: 100%;
  top: 0;
  left: 0;
@@ -54,6 +103,41 @@
  padding-top: 80px;
  }
 }
+&lt;/style>
+&lt;style>
+ .code-box {
+ padding: 10px;
+ width: 100%;
+ height: 100px;
+ overflow: auto;
+ font-family: monospace;
+ background-color: #1E1E1E;
+ position: relative;
+ margin: 10px auto;
+ border: 2px solid #000000;
+ border-radius: 10px;
+ color: white;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ }
+
+ .copy-btn {
+ position: absolute;
+ top: 10px;
+ right: 10px;
+ padding: 5px 10px;
+ background-color: #4CAF50;
+ color: white;
+ border: none;
+ cursor: pointer;
+ border-radius: 5px;
+ font-size: 14px;
+ }
+
+ .copy-btn:hover {
+ background-color: #45a049;
+ }
 &lt;/style>
 &lt;!-- Sidebar Table of Contents -->
 &lt;nav id="sidebar">
@@ -69,11 +153,11 @@
  &lt;li>&lt;a href="#conclusion">Conclusion&lt;/a>&lt;/li>
  &lt;/ul>
 &lt;/nav>
-&lt;h1 id="before-you-read">
+&lt;h2 id="before-you-read">
  Before you read
  &lt;a class="heading-link" href="#before-you-read">
  &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
  &lt;span class="sr-only">Link to heading&lt;/span>
  &lt;/a>
-&lt;/h1>
+&lt;/h2>
 &lt;p>Here I just wanted to give some background information on me and this challenge. This is a challenge developed by the National Security Agency that takes place over several months and tests various technical and logical skills. Out of any CTF challenge I&amp;rsquo;ve done, this has been my favorite by far. Here I&amp;rsquo;m just going to talk about how I solved these challenges, some other methods to solve them, and some of my mistakes along the way.&lt;/p></description></item></channel></rss>

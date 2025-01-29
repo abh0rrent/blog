@@ -1,4 +1,53 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home</title><link>https://abh0rrent.github.io/blog/</link><description>Recent content on Home</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 21 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://abh0rrent.github.io/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>NSA CodeBreaker Challenge</title><link>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</link><pubDate>Tue, 21 Jan 2025 00:00:00 +0000</pubDate><guid>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</guid><description>&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home</title><link>https://abh0rrent.github.io/blog/</link><description>Recent content on Home</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 25 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://abh0rrent.github.io/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>About Me</title><link>https://abh0rrent.github.io/blog/about/</link><pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate><guid>https://abh0rrent.github.io/blog/about/</guid><description>&lt;p>Well not much to say here, I&amp;rsquo;m just a student who enjoys technology. I started messing around with computers and programming when I was younger, but did stop for awhile. About a year ago, I started developing again mainly to satisfy my curiosity when learning about Viruses and Malware. Unfortunately I haven&amp;rsquo;t been able to keep up with my development for a bit, but I&amp;rsquo;m going to try to get back into this semester. I also plan on doing more reverse-engineering, the NSA CodeBreaker Challenge and NCL Cyber Competitions were my first introduction to that, and I found it very enjoyable. So, yea&amp;hellip;&lt;/p></description></item><item><title>NSA CodeBreaker Challenge</title><link>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</link><pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate><guid>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</guid><description>&lt;style>
+ .code-box {
+ padding: 10px;
+ width: 100%;
+ max-width: 800px;
+ height: 500px;
+ overflow: auto;
+ font-family: monospace;
+ background-color: #1E1E1E;
+ position: relative;
+ margin: 10px auto;
+ border: 2px solid #000000;
+ border-radius: 10px;
+ color: white;
+ }
+
+ .copy-btn {
+ position: absolute;
+ top: 10px;
+ right: 10px;
+ padding: 5px 10px;
+ background-color: #4CAF50;
+ color: white;
+ border: none;
+ cursor: pointer;
+ border-radius: 5px;
+ font-size: 14px;
+ }
+
+ .copy-btn:hover {
+ background-color: #45a049;
+ }
+
+ pre {
+ margin: 0;
+ padding: 15px; /* Increased padding */
+ white-space: pre-wrap;
+ word-wrap: break-word;
+ overflow-x: auto;
+ max-height: 100%; /* Ensures the text isn't cut off */
+ }
+
+ code {
+ display: block;
+ padding-top: 10px; /* Fixes top being cut off */
+ padding-bottom: 10px;
+ overflow: visible;
+ }
+&lt;/style>
+&lt;style>
 #sidebar {
  position: fixed;
  left: 10px;
@@ -41,7 +90,7 @@
 
 @media screen and (max-width: 900px) {
  #sidebar {
- position: relative !important;
+ position: relative;
  width: 100%;
  top: 0;
  left: 0;
@@ -54,6 +103,41 @@
  padding-top: 80px;
  }
 }
+&lt;/style>
+&lt;style>
+ .code-box {
+ padding: 10px;
+ width: 100%;
+ height: 100px;
+ overflow: auto;
+ font-family: monospace;
+ background-color: #1E1E1E;
+ position: relative;
+ margin: 10px auto;
+ border: 2px solid #000000;
+ border-radius: 10px;
+ color: white;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ }
+
+ .copy-btn {
+ position: absolute;
+ top: 10px;
+ right: 10px;
+ padding: 5px 10px;
+ background-color: #4CAF50;
+ color: white;
+ border: none;
+ cursor: pointer;
+ border-radius: 5px;
+ font-size: 14px;
+ }
+
+ .copy-btn:hover {
+ background-color: #45a049;
+ }
 &lt;/style>
 &lt;!-- Sidebar Table of Contents -->
 &lt;nav id="sidebar">
@@ -69,11 +153,28 @@
  &lt;li>&lt;a href="#conclusion">Conclusion&lt;/a>&lt;/li>
  &lt;/ul>
 &lt;/nav>
-&lt;h1 id="before-you-read">
+&lt;h2 id="before-you-read">
  Before you read
  &lt;a class="heading-link" href="#before-you-read">
  &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
  &lt;span class="sr-only">Link to heading&lt;/span>
  &lt;/a>
-&lt;/h1>
-&lt;p>Here I just wanted to give some background information on me and this challenge. This is a challenge developed by the National Security Agency that takes place over several months and tests various technical and logical skills. Out of any CTF challenge I&amp;rsquo;ve done, this has been my favorite by far. Here I&amp;rsquo;m just going to talk about how I solved these challenges, some other methods to solve them, and some of my mistakes along the way.&lt;/p></description></item></channel></rss>
+&lt;/h2>
+&lt;p>Here I just wanted to give some background information on me and this challenge. This is a challenge developed by the National Security Agency that takes place over several months and tests various technical and logical skills. Out of any CTF challenge I&amp;rsquo;ve done, this has been my favorite by far. Here I&amp;rsquo;m just going to talk about how I solved these challenges, some other methods to solve them, and some of my mistakes along the way.&lt;/p></description></item><item><title>Resources</title><link>https://abh0rrent.github.io/blog/resources/</link><pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate><guid>https://abh0rrent.github.io/blog/resources/</guid><description>&lt;h2 id="just-some-cool-stuff">
+ Just some cool stuff
+ &lt;a class="heading-link" href="#just-some-cool-stuff">
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
+ &lt;span class="sr-only">Link to heading&lt;/span>
+ &lt;/a>
+&lt;/h2>
+&lt;p>&lt;em>In no particular order&lt;/em>&lt;/p>
+&lt;p>&lt;a href="https://go.dev/" target="_blank">Golang&lt;/a>
+&lt;a href="https://www.python.org/" target="_blank">Python&lt;/a>
+&lt;a href="https://www.w3schools.com/c/c_intro.php" target="_blank">C&lt;/a>
+&lt;a href="https://godbolt.org/" target="_blank">Compiler Explorer&lt;/a>
+&lt;a href="https://github.com/luamfb/intro_x86-64" target="_blank">x86_64 ASM&lt;/a>
+&lt;a href="https://www.youtube.com/watch?v=lUbPUWtmVUU" target="_blank">x86_64 ASM video&lt;/a>
+&lt;a href="https://maldevacademy.com/" target="_blank">Maldev Academy&lt;/a>
+&lt;a href="https://0xinfection.github.io/reversing/" target="_blank">Reverse Engineering&lt;/a>
+&lt;a href="https://crackmes.one/" target="_blank">Reverse Engineering Practice&lt;/a>
+&lt;a href="https://noiseprotocol.org/noise.html" target="_blank">Noise Protocol&lt;/a>&lt;/p></description></item></channel></rss>
