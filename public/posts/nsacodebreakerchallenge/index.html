@@ -297,8 +297,7 @@ Aaliyah is showing you how Intelligence Analysts work. She pulls up a piece of i
 &rsquo;''</p>
 <p>For this task, we were given a file, <em><strong>shipping.db</strong></em>, which is a compressed directory containing DoD procurement information. The one file is important to us is <em><strong>content.xml</strong></em>. This is an xml database that contains various information and procurement ID&rsquo;s for every purchase.</p>
 <p>An example Entry:</p>
-<div style="padding: 1px; width: 100%; height: 50px; overflow: auto; font-family: monospace; background-color: #1E1E1E; position: relative; margin: auto; border: 2px solid #000000;border-radius: 10px;">
-  <pre id="copy-text"><code>
+<div style="padding: 1px; width: 100%; height: 100px; overflow: auto; font-family: monospace; background-color: #1E1E1E; position: relative; margin: auto; border: 2px solid #000000;border-radius: 10px;">
 <text:p>&lt;text:p&gt;Titan Aerospace Systems&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;316 Hawkins Isle Apt. 275, New Steveland, AR 73351&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;Jessica Thomas&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;###-###-4680&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;jessicat@titanaerospace.systems&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;Ryan Perez&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;###-###-9665&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;ryanp@titanaerospace.systems&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;TIT0672027&lt;/text:p&gt;</div>
 <p>I decided to just open this up in an XML database application, <strong>basex</strong>. From here, I started to look through the database properties where I could see the frequency of each item in the database. I figured that if an entry was poisoned, it would only appear once (expect for the procurement IDs), so I started by looking at all of the unique entries. Here I found that there was an address that was only used once. And after finding it in the database, I also had the procurement ID associated with that purchase.</p>
 <p>This was of course the easiest task in the challenge, but I had not worked much with xml and don&rsquo;t plan to work with it much anymore. But, it was interesting nontheless. Also, I have a feeling my solution to this task contributed to my difficulty with finding out what &lsquo;jasper_0&rsquo; was in task3. Had I actually looked at an entry, I would have seen a very similar layout for all of the emails and this could have sped up that last little bit.</p>
@@ -661,7 +660,7 @@ for {
 <img src="regular.png" alt="Regular" width="500" height="300" style="display: block; margin: auto;">
 <p>Our Attack method:</p>
 <img src="attack.png" alt="Attack" width="500" height="300" style="display: block; margin: auto;">
-<p>In essence, we are bypassing remote authentication</p>
+<p><em>In essence, we are bypassing remote authentication</em></p>
 <h2 id="task-4---llms-never-lie">
   Task 4 - LLMs never lie:
   <a class="heading-link" href="#task-4---llms-never-lie">
@@ -1502,7 +1501,7 @@ document.addEventListener("DOMContentLoaded", function () {
             sidebar.style.width = "100%";
             content.style.marginLeft = "0";
             content.style.paddingTop = "80px"; 
-        } else if (contentRect.left > 500) { 
+        } else if (availableSpace > 500) { 
             sidebar.classList.remove("top");
             sidebar.style.position = "fixed";
             sidebar.style.width = "250px";
@@ -1521,7 +1520,6 @@ document.addEventListener("DOMContentLoaded", function () {
         window.checkOverlap();
     });
 
-    // ✅ Ensure `checkOverlap` runs every 100ms
     setInterval(() => {
         window.checkOverlap();
     }, 100);

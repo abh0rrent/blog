@@ -117,8 +117,7 @@ For this task, we were given a file, _**shipping.db**_, which is a compressed di
 
 
 An example Entry:
-<div style="padding: 1px; width: 100%; height: 50px; overflow: auto; font-family: monospace; background-color: #1E1E1E; position: relative; margin: auto; border: 2px solid #000000;border-radius: 10px;">
-  <pre id="copy-text"><code>
+<div style="padding: 1px; width: 100%; height: 100px; overflow: auto; font-family: monospace; background-color: #1E1E1E; position: relative; margin: auto; border: 2px solid #000000;border-radius: 10px;">
 <text:p>&lt;text:p&gt;Titan Aerospace Systems&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;316 Hawkins Isle Apt. 275, New Steveland, AR 73351&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;Jessica Thomas&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;###-###-4680&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;jessicat@titanaerospace.systems&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;Ryan Perez&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;###-###-9665&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;ryanp@titanaerospace.systems&lt;/text:p&gt;&lt;/table:table-cell&gt;&lt;table:table-cell office:value-type="string" calcext:value-type="string"&gt;&lt;text:p&gt;TIT0672027&lt;/text:p&gt;</div>
 
 
@@ -588,7 +587,7 @@ Our Attack method:
 
 <img src="attack.png" alt="Attack" width="500" height="300" style="display: block; margin: auto;">
 
-In essence, we are bypassing remote authentication 
+*In essence, we are bypassing remote authentication*
 
 
 
@@ -1582,7 +1581,7 @@ document.addEventListener("DOMContentLoaded", function () {
             sidebar.style.width = "100%";
             content.style.marginLeft = "0";
             content.style.paddingTop = "80px"; 
-        } else if (contentRect.left > 500) { 
+        } else if (availableSpace > 500) { 
             sidebar.classList.remove("top");
             sidebar.style.position = "fixed";
             sidebar.style.width = "250px";
@@ -1601,7 +1600,6 @@ document.addEventListener("DOMContentLoaded", function () {
         window.checkOverlap();
     });
 
-    // ✅ Ensure `checkOverlap` runs every 100ms
     setInterval(() => {
         window.checkOverlap();
     }, 100);
