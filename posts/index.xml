@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Home</title><link>https://abh0rrent.github.io/blog/posts/</link><description>Recent content in Posts on Home</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 25 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://abh0rrent.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>NSA CodeBreaker Challenge</title><link>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</link><pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate><guid>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</guid><description>&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Home</title><link>https://abh0rrent.github.io/blog/posts/</link><description>Recent content in Posts on Home</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 25 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://abh0rrent.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>NSA CodeBreaker Challenge</title><link>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</link><pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate><guid>https://abh0rrent.github.io/blog/posts/nsacodebreakerchallenge/</guid><description>&lt;style&gt;
  .code-box {
  padding: 10px;
  width: 100%;
@@ -46,8 +46,8 @@
  padding-bottom: 10px;
  overflow: visible;
  }
-&lt;/style>
-&lt;style>
+&lt;/style&gt;
+&lt;style&gt;
 #sidebar {
  position: fixed;
  left: 10px;
@@ -103,8 +103,8 @@
  padding-top: 80px;
  }
 }
-&lt;/style>
-&lt;style>
+&lt;/style&gt;
+&lt;style&gt;
  .code-box {
  padding: 10px;
  width: 100%;
@@ -138,26 +138,26 @@
  .copy-btn:hover {
  background-color: #45a049;
  }
-&lt;/style>
-&lt;!-- Sidebar Table of Contents -->
-&lt;nav id="sidebar">
- &lt;h2>Table of Contents&lt;/h2>
- &lt;ul>
- &lt;li>&lt;a href="##before-you-read">Background Information&lt;/a>&lt;/li>
- &lt;li>&lt;a href="#task-0---community-of-practice-discord-server">Task 0&lt;/a>&lt;/li>
- &lt;li>&lt;a href="#task-1---no-token-left-behind">Task 1 - No Token Left Behind&lt;/a>&lt;/li>
- &lt;li>&lt;a href="#task-2---driving-me-crazy">Task 2 - Driving Me Crazy&lt;/a>&lt;/li>
- &lt;li>&lt;a href="#task-3---how-did-they-get-in">Task 3 - How did they get in?&lt;/a>&lt;/li>
- &lt;li>&lt;a href="#task-4---llms-never-lie">Task 4 - LLMs never lie&lt;/a>&lt;/li>
- &lt;li>&lt;a href="#task-5---the-153">Task 5 - The #153&lt;/a>&lt;/li>
- &lt;li>&lt;a href="#conclusion">Conclusion&lt;/a>&lt;/li>
- &lt;/ul>
-&lt;/nav>
-&lt;h2 id="before-you-read">
+&lt;/style&gt;
+&lt;!-- Sidebar Table of Contents --&gt;
+&lt;nav id="sidebar"&gt;
+ &lt;h2&gt;Table of Contents&lt;/h2&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href="##before-you-read"&gt;Background Information&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#task-0---community-of-practice-discord-server"&gt;Task 0&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#task-1---no-token-left-behind"&gt;Task 1 - No Token Left Behind&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#task-2---driving-me-crazy"&gt;Task 2 - Driving Me Crazy&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#task-3---how-did-they-get-in"&gt;Task 3 - How did they get in?&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#task-4---llms-never-lie"&gt;Task 4 - LLMs never lie&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#task-5---the-153"&gt;Task 5 - The #153&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href="#conclusion"&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;h2 id="before-you-read"&gt;
  Before you read
- &lt;a class="heading-link" href="#before-you-read">
- &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading">&lt;/i>
- &lt;span class="sr-only">Link to heading&lt;/span>
- &lt;/a>
-&lt;/h2>
-&lt;p>Here I just wanted to give some background information on me and this challenge. This is a challenge developed by the National Security Agency that takes place over several months and tests various technical and logical skills. Out of any CTF challenge I&amp;rsquo;ve done, this has been my favorite by far. Here I&amp;rsquo;m just going to talk about how I solved these challenges, some other methods to solve them, and some of my mistakes along the way.&lt;/p></description></item></channel></rss>
+ &lt;a class="heading-link" href="#before-you-read"&gt;
+ &lt;i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"&gt;&lt;/i&gt;
+ &lt;span class="sr-only"&gt;Link to heading&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;Here I just wanted to give some background information on me and this challenge. This is a challenge developed by the National Security Agency that takes place over several months and tests various technical and logical skills. Out of any CTF challenge I&amp;rsquo;ve done, this has been my favorite by far. Here I&amp;rsquo;m just going to talk about how I solved these challenges, some other methods to solve them, and some of my mistakes along the way.&lt;/p&gt;</description></item></channel></rss>
